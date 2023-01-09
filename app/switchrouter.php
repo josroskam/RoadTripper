@@ -10,6 +10,8 @@ class SwitchRouter {
                 $controller->index();
                 break;
 
+                
+
             case 'about': 
                 require __DIR__ . '/controllers/homecontroller.php';
                 $controller = new HomeController();
