@@ -12,7 +12,7 @@ class User implements JsonSerializable{
         // allocate your stuff
     }
 
-    public static function User($id, $firstname, $lastname, $emailaddress, $password, $favorite_holiday_destination) {
+    public static function NewUser($id, $firstname, $lastname, $emailaddress, $password, $favorite_holiday_destination) {
         $instance = new self();
         $instance->setId($id);
         $instance->setFirstname($firstname);
@@ -64,9 +64,9 @@ class User implements JsonSerializable{
     }
 
     /**
-     * Set the value of title
+     * Set the value of firstname
      *
-     * @param string $title
+     * @param string $firstname
      *
      * @return self
      */
@@ -78,7 +78,7 @@ class User implements JsonSerializable{
     }
 
     /**
-     * Get the value of content
+     * Get the value of lastname
      *
      * @return string
      */
@@ -88,9 +88,9 @@ class User implements JsonSerializable{
     }
 
     /**
-     * Set the value of content
+     * Set the value of lastname
      *
-     * @param string $content
+     * @param string $lastname
      *
      * @return self
      */
@@ -102,7 +102,7 @@ class User implements JsonSerializable{
     }
 
     /**
-     * Get the value of author
+     * Get the value of emailaddress
      *
      * @return string
      */
@@ -112,9 +112,9 @@ class User implements JsonSerializable{
     }
 
     /**
-     * Set the value of author
+     * Set the value of emailaddress
      *
-     * @param string $author
+     * @param string $emailaddress
      *
      * @return self
      */
@@ -126,7 +126,7 @@ class User implements JsonSerializable{
     }
 
     /**
-     * Get the value of datetime
+     * Get the value of password
      *
      * @return string
      */
@@ -136,9 +136,9 @@ class User implements JsonSerializable{
     }
 
     /**
-     * Set the value of datetime
+     * Set the value of password
      *
-     * @param string $datetime
+     * @param string $password
      *
      * @return self
      */
@@ -155,9 +155,9 @@ class User implements JsonSerializable{
     }
 
     /**
-     * Set the value of datetime
+     * Set the value of favorite_holiday_destination
      *
-     * @param string $datetime
+     * @param string $favorite_holiday_destination
      *
      * @return self
      */

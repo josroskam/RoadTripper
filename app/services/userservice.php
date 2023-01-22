@@ -6,21 +6,54 @@ class UserService {
     public function getAll() {
         // retrieve data
         $repository = new UserRepository();
-        $articles = $repository->getAll();
+        $articles = $repository->getAllUsers();
         return $articles;
     }
 
-    public function insert($article) {
+    public function insert($firstname, $lastname, $emailaddress, $password, $favorite_holiday_destination) {
         // retrieve data
         $repository = new UserRepository();
-        $repository->insert($article);        
+        $repository->insert($firstname, $lastname, $emailaddress, $password, $favorite_holiday_destination);        
     }
 
     public function getUser($emailaddress, $password) { 
         // retrieve data
         $repository = new UserRepository();
-        $user = $repository->getUser($emailaddress, $password);
-        return $user;
+        return $repository->getUser($emailaddress, $password);
+        //  return $user;
+    }
+
+    public function getUserByEmailaddress($emailaddress) { 
+        // retrieve data
+        $repository = new UserRepository();
+        return $repository->getUserById($emailaddress);
+        //  return $user;
+    }
+
+    // public function getUserByEmailaddressForChange() { 
+    //     // retrieve data
+    //     $repository = new UserRepository();
+    //     return $repository->getUserByIdForChange();
+    //     //  return $user;
+    // }
+
+    public function checkUserPassword($email, $password) { 
+        // retrieve data
+        $repository = new UserRepository();
+        return $repository->checkUserPassword($email, $password);
+        //  return $user;
+    }
+
+    public function checkUserExists($email){
+        $repository = new UserRepository();
+        if ($repository->checkUserExists($email))
+            return false;
+        return true;
+    }
+
+    public function updateUser($firstname, $lastname, $password, $favorite_holiday_destination, $currentEmail){
+        $repository = new UserRepository();
+        $repository->updateUser($firstname, $lastname, $password, $favorite_holiday_destination, $currentEmail);
     }
 }
 

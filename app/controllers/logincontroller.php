@@ -15,52 +15,99 @@ class LoginController extends Controller {
     }
 
     public function index() {
-        // SESSION IS LOGGED IN?
-        // Check if the user is already logged in, if yes then redirect him to FEED page
-        if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-            header("location: feed/");
-            exit;
-        } else{
+        if(isset($_SESSION["firstname"])){
+            require  $_SERVER['REQUEST_URI'];
+        } else {
             require __DIR__ . '/../views/login/index.php';
-        }
+            if (isset($_POST["LoginUser"])) {
+                $emailaddress = htmlspecialchars($_POST["email"]);
+                $password = htmlspecialchars($_POST["hashedpassword"]);
+                $this->Login($emailaddress, $password);
+            }
 
-        if(isset($_POST["Submit"])){
-            $this->Login();
-        }
+            if (isset($_POST["SubmitNewUser"])) {
+                $firstname = htmlspecialchars($_POST["firstname"]);
+                $lastname = htmlspecialchars($_POST["lastname"]);
+                $emailaddress = htmlspecialchars($_POST["email"]);
+                $password = htmlspecialchars($_POST["hashedpassword"]);
+                $passwordrepeat = htmlspecialchars($_POST["passwordrepeat"]);
+                $favorite_holiday_destination = htmlspecialchars($_POST["destination"]);
+                $this->signupUser($firstname, $lastname, $emailaddress, $password, $passwordrepeat, $favorite_holiday_destination);
+            }
 
-        if (isset($_GET['hello'])) {
-            $this->logout();
-          }
-          
+            if (isset($_POST["logout"])) {
+                echo "logout is clicked";
+                $this->logout();
+            }
+        }
     }
 
-    public function about() {
-        // echo "you've reached the about method of the home controller";
+    private function signupUser($firstname, $lastname, $emailaddress, $password, $passwordrepeat, $favorite_holiday_destination){       
+        if($this->emptyInput($firstname, $lastname, $emailaddress, $password, $passwordrepeat, $favorite_holiday_destination) == false)
+            echo "<script>userRegisteredFailed('Fields can not be empty!');</script>";
+        else if($this->invalidEmail($emailaddress) == false)
+            echo "<script>userRegisteredFailed('Emailaddress is invalid');</script>";
+        else if($this->pwdMatch($password, $passwordrepeat) == false)
+            echo "<script>userRegisteredFailed('Passwords do not match');</script>";
+        else if($this->EmailTaken($emailaddress) == false)
+            echo "<script>userRegisteredFailed('Emailaddress is already taken');</script>";
+        else {
+            $this->setUser($firstname, $lastname, $emailaddress, $password, $favorite_holiday_destination);
+        }
     }
 
-    public function Login(){
-        // echo $_POST["emailaddress"];
-        $user = $this->userService->getUser($_POST["emailaddress"], $_POST["password"]);
+    private function emptyInput($firstname, $lastname, $emailaddress, $password, $passwordrepeat, $favorite_holiday_destination){
+        if(empty($firstname) || empty($lastname) || empty($emailaddress) || empty($password) || empty($passwordrepeat) || empty($favorite_holiday_destination))
+            return false;
+        return true;
+    }
+    
+    private function invalidEmail($emailaddress){
+        if(!filter_var($emailaddress, FILTER_VALIDATE_EMAIL))        
+            return false;
+        return true;
+    }
 
-        // $user = (object)$user;
-        
-        // Store data in session variables
-        // $student = User::User($user[0],"","","","","");
+    private function pwdMatch($password, $passwordrepeat){
+        if($password !== $passwordrepeat)
+            return false;
+        return true;
+    }
 
-        if($user == null){
-            $_SESSION["loggedin"] = false;
-            // $this->setSessionInfo();
-            echo "<span class= 'error'>Invalid username or password.</span>";
+    private function EmailTaken($emailaddress){
+        if($this->userService->checkUserExists($emailaddress))
+            return false;
+        return true;
+    }
+
+    private function setUser($firstname, $lastname, $emailaddress, $password, $favorite_holiday_destination){
+        // hash password
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $this->userService->insert($firstname, $lastname, $emailaddress, $hashedPassword, $favorite_holiday_destination);
+        echo "<script>userRegisteredSuccessfully();</script>";
+    }
+
+    public function Login($email, $password){
+        if($this->emptyLoginInput($email, $password) == false){
+            echo "<script>userRegisteredFailed('Fields can not be empty!');</script>";
         } else{
-            $_SESSION["emailaddress"] = $_POST["emailaddress"];
-            $_SESSION["password"] = $_POST["password"];
-
-            $_SESSION["loggedin"] = true;
-            echo "<script>window.location.href='/feed'</script>";
-        }        
+            if($this->userService->getUser($email, $password) == false){
+                echo "<script>userRegisteredFailed('Invalid login credintials, please try again.');</script>";
+            }
+        }
     }
+
+    private function emptyLoginInput($email, $password){
+        if(empty($email) || empty($password))
+            return false;
+        return true;
+    }
+
     public function logout(){
+        session_start();
+        session_unset();
         session_destroy();
+        ?><script>window.location = '/feed';</script><?php
     }
 }
 ?>

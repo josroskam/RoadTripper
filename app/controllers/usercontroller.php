@@ -1,33 +1,80 @@
 <?php
 require __DIR__ . '/controller.php';
+// require __DIR__ . '/../models/user.php.php';
 require __DIR__ . '/../services/userservice.php';
+session_start();
 
 class UserController extends Controller {
-    private $userService; 
+    private $userService;
+    private $user;
 
     // initialize services
     function __construct() {
         $this->userService = new UserService();
+        $this->user = new User();
     }
 
     // router maps this to /article and /article/index automatically
-    public function index() {
-        $userIsLoggedIn = false;
-        if(!$userIsLoggedIn){
+    public function index()
+    {
+        $sessionEmail = $_SESSION["email"];
 
-        } else {
-            $users = $this->userService->getAll();
-            $this->displayView($users);
+        // Show account information        
+        $currentuser = $this->userService->getUserByEmailaddress($sessionEmail);
+        $this->displayView($currentuser);
+
+        // Handle post request
+        // User needs to verifify password before user can make changes
+        if(isset($_POST["passwordCheck"]))
+        {
+            $this->checkUser($sessionEmail);
         }
-        // retrieve data 
-    
-        // show view, param = accessible as $model in the view
-        // displayView maps this to /views/article/index.php automatically
-        
+
+        if(isset($_POST["updateAccount"]))
+        {        
+            $firstname = htmlspecialchars($_POST["newFirstname"]);
+            $lastname = htmlspecialchars($_POST["newLastname"]);
+            // $emailaddress = $_POST["newEmailaddress"];
+            $password = htmlspecialchars($_POST["newPassword"]);
+            $hashedPassword = htmlspecialchars(password_hash($password, PASSWORD_DEFAULT));
+            $destination = htmlspecialchars($_POST["newDestination"]);
+
+            if($this->emptyInput($firstname, $lastname, $password, $destination)){
+                echo "<script>userRegisteredFailed('Fields can not be empty.');</script>";
+            } else{       
+                $this->updateUser($firstname, $lastname, $hashedPassword, $destination, $sessionEmail);
+                echo "<script>updateFormFields();</script>";
+            }
+        }        
     }
 
-    public function about() {
-        echo "you've reached the about method of the home controller";
+    public function updateUser($firstname, $lastname, $hashedPassword, $destination, $sessionEmail) {
+        $this->userService->updateUser($firstname, $lastname, $hashedPassword, $destination, $sessionEmail);
+        echo "<script>userRegisteredSuccessfully('Account successfully updated!');</script>";
+    }
+
+    private function checkUser($sessionEmail){
+        // Check if password is the same
+        $passwordToCheck = htmlspecialchars($_POST["passwordToCheck"]);
+        // Return true or false
+        $bool = $this->userService->checkUserPassword($sessionEmail, $passwordToCheck);
+
+        // If true then the inputs don't have to be readonly anymore
+        if($bool != null){
+            echo "<script>switchReadonly();</script>";
+            echo "<script>showSaveButton();</script>";
+            echo "<script>setPasswordValueToNull();</script>"; 
+        } else{
+            // echo error password is incorrect
+            echo "<script>openModal();</script>";
+            echo "<script>userRegisteredFailed('Password incorrect');</script>";
+        }
+    }
+
+    private function emptyInput($firstname, $lastname, $password, $destination){
+        if(empty($firstname) || empty($lastname) || empty($password) || empty($destination))
+            return true;
+        return false;
     }
 }
 ?>

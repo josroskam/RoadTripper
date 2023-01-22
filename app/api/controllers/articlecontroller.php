@@ -25,7 +25,6 @@ class ArticleController
             $articles = $this->articleService->getAll();
             header('Content-Type: application/json');
             echo json_encode($articles);
-
         }
 
         // Respond to a POST request to /api/article
