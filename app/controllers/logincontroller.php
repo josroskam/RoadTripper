@@ -6,40 +6,45 @@ require_once __DIR__ . '/../models/user.php';
 
 class LoginController extends Controller {
     private $userService;
-    private $user;
 
     // initialize services
     function __construct() {
         $this->userService = new UserService();
-        $this->user = new User();
     }
 
     public function index() {
         if(isset($_SESSION["firstname"])){
-            require  $_SERVER['REQUEST_URI'];
+            ?><script>window.location = '/feed';</script><?php
         } else {
             require __DIR__ . '/../views/login/index.php';
             if (isset($_POST["LoginUser"])) {
-                $emailaddress = htmlspecialchars($_POST["email"]);
-                $password = htmlspecialchars($_POST["hashedpassword"]);
-                $this->Login($emailaddress, $password);
+                $this->setLoginUserVariables();
             }
 
             if (isset($_POST["SubmitNewUser"])) {
-                $firstname = htmlspecialchars($_POST["firstname"]);
+                $this->setNewUserVariables();
+            }
+
+            if (isset($_POST["logout"])) {
+                ?><script>window.location = '/logout';</script><?php
+            } 
+        } 
+    }
+
+    private function setNewUserVariables(){
+        $firstname = htmlspecialchars($_POST["firstname"]);
                 $lastname = htmlspecialchars($_POST["lastname"]);
                 $emailaddress = htmlspecialchars($_POST["email"]);
                 $password = htmlspecialchars($_POST["hashedpassword"]);
                 $passwordrepeat = htmlspecialchars($_POST["passwordrepeat"]);
                 $favorite_holiday_destination = htmlspecialchars($_POST["destination"]);
                 $this->signupUser($firstname, $lastname, $emailaddress, $password, $passwordrepeat, $favorite_holiday_destination);
-            }
+    }
 
-            if (isset($_POST["logout"])) {
-                echo "logout is clicked";
-                $this->logout();
-            }
-        }
+    private function setLoginUserVariables(){
+        $emailaddress = htmlspecialchars($_POST["email"]);
+                $password = htmlspecialchars($_POST["hashedpassword"]);
+                $this->Login($emailaddress, $password);
     }
 
     private function signupUser($firstname, $lastname, $emailaddress, $password, $passwordrepeat, $favorite_holiday_destination){       
@@ -101,13 +106,6 @@ class LoginController extends Controller {
         if(empty($email) || empty($password))
             return false;
         return true;
-    }
-
-    public function logout(){
-        session_start();
-        session_unset();
-        session_destroy();
-        ?><script>window.location = '/feed';</script><?php
     }
 }
 ?>

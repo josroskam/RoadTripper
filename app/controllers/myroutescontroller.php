@@ -14,15 +14,14 @@ class MyRoutesController extends Controller {
         require __DIR__ . '/../views/myroutes/index.php';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $lastRowId = $this->routeService->getLastRouteId();
-            $newRowId = $lastRowId + 1;
             $title = htmlspecialchars($_POST['title']);
             $description = htmlspecialchars($_POST['description']);
-            $author = 1;
+            // authoremail is session email
+            $author = $_SESSION['email'];
             $posted_at = date("Y-m-d");;
                         
             // Do something with the data, such as inserting it into a database
-            if($this->routeService->insertRoute($newRowId, $title, $description, $author, $posted_at)){
+            if($this->routeService->insertRoute(NULL, $title, $description, $author, $posted_at)){
                 echo "<script>userRegisteredSuccessfully('Route added successfully.');</script>";
             }else{
                 echo "<script>userRegisteredFailed('Route could not be saved.');</script>";

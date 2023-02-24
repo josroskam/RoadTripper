@@ -23,7 +23,7 @@ class PatternRouter
         }
 
         // set default controller/method
-        $defaultcontroller = 'home';
+        $defaultcontroller = 'feed';
         $defaultmethod = 'index';
 
         // ignore query parameters

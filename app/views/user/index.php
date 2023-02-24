@@ -123,9 +123,11 @@
                                         value="<?= $user->getFavorite_Holiday_Destination() ?>" readonly />
                                 </div>
                             </div>
-                            <button id="modal-btn" type="button" class="modal-btn">Update account</button>
-                            <button id="modal-btn2" type="Submit" name="updateAccount" class="modal-btn mt-2"
-                                style="display:none">Save changes</button>
+                            <!-- <button id="modal-btn" type="button" class="modal-btn">Update account</button> -->
+                            <br> <br>
+                            <button class="btn btn-danger" type="submit" value="Submit" name="deleteAccount">Delete</button>
+                            <!-- <button class="btn btn-danger" type="submit" value="Submit" name="deleteAccount" id="myBtn">Delete Account</button> -->
+                            <button id="modal-btn2" type="Submit" name="updateAccount" onclick="updateAccount()" class="modal-btn mt-2" style="display:none">Save changes</button>
                         </div>
                         <?php }?>
                     </form>
@@ -225,7 +227,26 @@
                 }
             });
         }
-        // });
+
+        function deleteAccount() {
+  // send a DELETE request to the server to delete the account
+  fetch('/api/user', {
+    method: 'DELETE'
+  })
+  .then(response => {
+    if (response.ok) {
+      alert("Your account has been deleted.");
+      // redirect the user to the login page
+    //   window.location.replace("/login");
+    } else {
+      alert("An error occurred while deleting your account. Please try again later.");
+    }
+  })
+  .catch(error => {
+    console.error("Error deleting account:", error);
+    alert("An error occurred while deleting your account. Please try again later.");
+  });
+}
     </script>
 </body>
 

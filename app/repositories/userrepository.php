@@ -35,22 +35,6 @@ class UserRepository extends Repository
         }
     }
 
-    // function getUserByIdForChange()
-    // {
-    //     try {
-    //         $stmt = $this->connection->prepare("SELECT firstname, lastname, emailaddress, hashedpassword, favorite_holiday_destination FROM user WHERE emailaddress = ?");
-    //         $stmt->execute(array('josroskam@hotmail.com'));
-
-    //         $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
-    //         $user = $stmt->fetch();
-    //         // $user = $stmt->fetchAll();
-
-    //         return $user;
-    //     } catch (PDOException $e) {
-    //         echo $e;
-    //     }
-    // }
-
     // insert a new user
     function insert($firstname, $lastname, $emailaddress, $password, $favorite_holiday_destination)
     {
@@ -105,64 +89,24 @@ class UserRepository extends Repository
     }
     
 
-    // get single user to login
-    function getUser($emailaddress, $password)
-    {
-        try{
-            $stmt = $this->connection->prepare('SELECT hashedpassword FROM user WHERE emailaddress = ?;');
-
-            if(!$stmt->execute(array($emailaddress))){
-                $stmt = null;
+    function getUser($email, $password) {
+        try {
+            $stmt = $this->connection->prepare('SELECT * FROM user WHERE emailaddress = ?;');
+            $stmt->execute([$email]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (!$user || !password_verify($password, $user['hashedpassword'])) {
                 return false;
             }
-
-            if($stmt->rowCount() == 0){
-                $stmt == null;
-                return false;
-            }
-
-            $passwordHashed = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $checkPassword = password_verify($password, $passwordHashed[0]["hashedpassword"]);
-
-            if($checkPassword == false){
-                $stmt = null;
-                return false;
-            }
-
-            else if($checkPassword == true){
-                $stmt = $this->connection->prepare('SELECT * FROM user WHERE emailaddress = ? AND hashedpassword = ?;');
-                if(!$stmt->execute(array($emailaddress, $passwordHashed[0]["hashedpassword"]))){
-                    $stmt = null;
-                    return false;
-                }
-
-                if($stmt->rowCount() == 0){
-                    $stmt = null;
-                    return false;
-                }
-
-                $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                if(!isset($_SESSION)) 
-                { 
-                    session_start();                 
-                }                 
-
-                $_SESSION["firstname"] = $user[0]["firstname"];
-                $_SESSION["email"] = $user[0]["emailaddress"];
-                ?>
-                <script>
-                    window.location = '/feed';
-                </script>
-                <?php
-                    $stmt = null;
-                return true;
-            }
-        }
-        catch(PDOException $e){
+            session_start();
+            $_SESSION["firstname"] = $user["firstname"];
+            $_SESSION["email"] = $user["emailaddress"];
+            echo '<script>window.location = "/feed";</script>';
+            return true;
+        } catch (PDOException $e) {
             echo $e;
-        }        
+        }
     }
+    
 
     // check user exists by emailaddress
     function checkUserExists($emailaddress)
@@ -183,8 +127,6 @@ class UserRepository extends Repository
 
     function updateUser($firstname, $lastname, $password, $favorite_holiday_destination, $currentEmail){
         try {
-            // $stmt = $this->connection->prepare("UPDATE user SET firstname = ?, lastname = ?, emailaddress = ?, hashedpassword = ?, favorite_holiday_destination = ? WHERE 'emailaddress' = 'josroskam@hotmail.com'");
-            // $stmt->execute(array($firstname, $lastname, $emailaddress, $password, $favorite_holiday_destination));
             $sql = "UPDATE user SET firstname = ?, lastname = ?, hashedpassword = ?, favorite_holiday_destination = ? WHERE emailaddress = ?";
             $stmt= $this->connection->prepare($sql);
             $stmt->execute(array($firstname, $lastname, $password, $favorite_holiday_destination, $currentEmail));
@@ -203,4 +145,26 @@ class UserRepository extends Repository
             echo $e;
         }
     }
+
+    function deleteUser($emailaddress){
+        try {
+            $sql = "DELETE FROM user WHERE emailaddress = ?";
+            $stmt= $this->connection->prepare($sql);
+            $stmt->execute([$emailaddress]);
+    
+            $rowCount = $stmt->rowCount();
+            if ($rowCount > 0) {
+                $response = ['success' => true, 'message' => "User deleted successfully. $rowCount rows affected."];
+            } else {
+                $response = ['success' => false, 'message' => "User not found or no rows affected."];
+            }
+            header('Content-Type: application/json');
+            echo json_encode($response);    
+        } catch (PDOException $e) {
+            $response = ['success' => false, 'message' => $e->getMessage()];
+            header('Content-Type: application/json');
+            echo json_encode($response);
+        }
+    }
+    
 }
