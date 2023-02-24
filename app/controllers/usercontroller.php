@@ -1,17 +1,13 @@
 <?php
 require __DIR__ . '/controller.php';
-// require __DIR__ . '/../models/user.php.php';
 require __DIR__ . '/../services/userservice.php';
 session_start();
 
 class UserController extends Controller {
     private $userService;
-    private $user;
-
     // initialize services
     function __construct() {
         $this->userService = new UserService();
-        $this->user = new User();
     }
 
     // router maps this to /article and /article/index automatically
@@ -31,6 +27,26 @@ class UserController extends Controller {
         }
 
         if(isset($_POST["updateAccount"]))
+        {        
+            $firstname = htmlspecialchars($_POST["newFirstname"]);
+            $lastname = htmlspecialchars($_POST["newLastname"]);
+            // $emailaddress = $_POST["newEmailaddress"];
+            $password = htmlspecialchars($_POST["newPassword"]);
+            $hashedPassword = htmlspecialchars(password_hash($password, PASSWORD_DEFAULT));
+            $destination = htmlspecialchars($_POST["newDestination"]);
+
+            if($this->emptyInput($firstname, $lastname, $password, $destination)){
+                echo "<script>userRegisteredFailed('Fields can not be empty.');</script>";
+            } else{       
+                $this->updateUser($firstname, $lastname, $hashedPassword, $destination, $sessionEmail);
+                echo "<script>updateFormFields();</script>";
+            }
+        }       
+        
+        if(isset($_POST["deleteAccount"]))
+        {
+            $this->deleteUser($sessionEmail);
+        }
         {        
             $firstname = htmlspecialchars($_POST["newFirstname"]);
             $lastname = htmlspecialchars($_POST["newLastname"]);
@@ -75,6 +91,12 @@ class UserController extends Controller {
         if(empty($firstname) || empty($lastname) || empty($password) || empty($destination))
             return true;
         return false;
+    }
+
+    private function deleteUser($sessionEmail){
+        $this->userService->deleteUser($sessionEmail);
+        echo "<script>userRegisteredSuccessfully('Account successfully deleted!');</script>";
+        echo "<script>window.location.replace('/logout');</script>";
     }
 }
 ?>

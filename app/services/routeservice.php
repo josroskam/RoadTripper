@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../repositories/routerepository.php';
+require_once( __DIR__ . '/../repositories/routerepository.php');
 
 
 class RouteService {
@@ -19,6 +19,11 @@ class RouteService {
     public function getLastRouteId(){
         $repository = new RouteRepository();
         return $repository->getLastRouteId();
+    }
+
+    public function getDestinationsForRoute($route_id){
+        $repository = new RouteRepository();
+        return $repository->getDestinationsForRoute($route_id);
     }
 }
 ?>

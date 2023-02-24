@@ -16,7 +16,6 @@ session_start();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <title>Feed</title>
-  <link href="../feed/css/mystyle.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
   <style>
     <?php include '../../app/css/mystyle.css';
     ?>
@@ -153,97 +152,6 @@ session_start();
       </table>
       <button type="button" class="btn btn-success" onclick="openModal()">Save route</button>
     </div>
-    <!-- Idea was to show all routes from the user who is logged in -->
-    <!-- <div class="row">
-      <h3>Your destinations</h3>
-      <div class="accordion accordion-flush" id="accordionFlushExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-              A trip trough Scandinavia!
-            </button>
-          </h2>
-          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
-            data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">
-              <table class="table caption-top" id="tablecomposedroute">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">City</th>
-                    <th scope="col">Country</th>
-                    <th scope="col">Longitude</th>
-                    <th scope="col">Latitude</th>
-                    <th scope="col">Comments</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Amsterdam</td>
-                    <td>The Netherlands</td>
-                    <td>-0.5</td>
-                    <td>31.08</td>
-                    <td>NULL</td>
-                    <td>EDIT</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Utrecht</td>
-                    <td>The Netherlands</td>
-                    <td>-0.5</td>
-                    <td>31.08</td>
-                    <td>NULL</td>
-                    <td>EDIT</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Antwerp</td>
-                    <td>Belgium</td>
-                    <td>-0.5</td>
-                    <td>31.08</td>
-                    <td>NULL</td>
-                    <td>EDIT</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-              Visiting Germany
-            </button>
-          </h2>
-          <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
-            data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
-              <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being
-              filled with some actual content.</div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-              The hills of Slovenia
-            </button>
-          </h2>
-          <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
-            data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
-              <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting
-              happening here in terms of content, but just filling up the space to make it look, at least at first
-              glance, a bit more representative of how this would look in a real-world application.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
   <footer>
     <?php
       // define('PROJECT_ROOT_PATH', __DIR__);
@@ -424,13 +332,7 @@ session_start();
     // Get the two form elements
     const form1 = document.querySelector('form[name="routeForm"]');
 
-    postDestinations();
 
-    // Submit both forms
-    form1.submit();
-  });
-
-  async function postDestinations() {
     const destinations = [];
     const table = document.querySelector('#tablecomposedroute');
     var headers = {
@@ -460,8 +362,10 @@ session_start();
         .then(function (data) {
           console.log(data)
         });
-    }
-  }
+    }    // Submit both forms
+    form1.submit();
+  });
+  
 </script>
 
 </html>

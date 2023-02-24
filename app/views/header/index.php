@@ -1,4 +1,3 @@
-<!-- separate file for the header nav bar -->
 <!DOCTYPE html>
 <html lang="en">    
 <head>
@@ -6,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta http-equiv="refresh" content="20"> -->
-    <link rel="stylesheet" href="" type="text/css">
+    <link rel="stylesheet" href="/css/mystyle.css" type="text/css">
     <link rel="icon" type="image/x-icon" href="">
     
     <!-- Some information about the website -->
@@ -20,9 +19,8 @@
     <link href="public/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="public/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> 
 
-    <link rel="stylesheet" href="public/css/mystyle.css">
+    <link rel="stylesheet" src="mystyle.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="php-restapi-starter/app/views/feed/mystyle.css">
     <link href="php-restapi-starter/app/views/feed/mystyle.css" rel="stylesheet" type="text/css" />    
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,7 +36,7 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a class="nav-link" href="/feed">FEED</a>
+          <a class="nav-link" href="/">FEED</a>
         </li>
         <?php
           if(isset($_SESSION["firstname"])){

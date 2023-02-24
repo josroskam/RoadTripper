@@ -30,12 +30,6 @@ class UserService {
         //  return $user;
     }
 
-    // public function getUserByEmailaddressForChange() { 
-    //     // retrieve data
-    //     $repository = new UserRepository();
-    //     return $repository->getUserByIdForChange();
-    //     //  return $user;
-    // }
 
     public function checkUserPassword($email, $password) { 
         // retrieve data
@@ -54,6 +48,11 @@ class UserService {
     public function updateUser($firstname, $lastname, $password, $favorite_holiday_destination, $currentEmail){
         $repository = new UserRepository();
         $repository->updateUser($firstname, $lastname, $password, $favorite_holiday_destination, $currentEmail);
+    }
+
+    public function deleteUser($email){
+        $repository = new UserRepository();
+        $repository->deleteUser($email);
     }
 }
 

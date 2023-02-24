@@ -5,8 +5,8 @@ class SwitchRouter {
         switch($uri) {
 
             case '': 
-                require __DIR__ . '/controllers/homecontroller.php';
-                $controller = new HomeController();
+                require __DIR__ . '/controllers/feedcontroller.php';
+                $controller = new FeedController();
                 $controller->index();
                 break;
 
@@ -14,7 +14,7 @@ class SwitchRouter {
 
             case 'about': 
                 require __DIR__ . '/controllers/homecontroller.php';
-                $controller = new HomeController();
+                $controller = new FeedController();
                 $controller->about();
                 break;
 

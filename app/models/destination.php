@@ -7,12 +7,13 @@ class Destination implements JsonSerializable{
     private string $country;
     private string $longitude;
     private string $latitude;
+    private int $route_id;
 
     public function __construct() {
         // allocate your stuff
     }
 
-    public static function NewDestination($destination_id, $address, $city, $country, $longitude, $latitude) {
+    public static function NewDestination($destination_id, $address, $city, $country, $longitude, $latitude, $route_id) {
         $instance = new self();
         $instance->setDestinationId($destination_id);
         $instance->setAddress($address);
@@ -20,6 +21,7 @@ class Destination implements JsonSerializable{
         $instance->setCountry($country);
         $instance->setLongitude($longitude);
         $instance->setLatitude($latitude);
+        $instance->setRouteId($route_id);
         return $instance;
     }
 
@@ -167,6 +169,30 @@ class Destination implements JsonSerializable{
 
         return $this;
     }
+
+    public function getRouteId(): int
+    {
+        return $this->route_id;
+    }
+
+    /**
+     * Set the value of route id (where the destination belongs to)
+     *
+     * @param string $latitude
+     *
+     * @return self
+     */
+    public function setRouteId(int $routeId): self
+    {
+        $this->route_id = $routeId;
+        return $this;
+    }
+
+    public function incrementRouteId(int $incrementAmount): self
+{
+    $this->route_id += $incrementAmount;
+    return $this;
+}
 }
 
 ?>

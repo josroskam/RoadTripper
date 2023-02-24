@@ -1,7 +1,5 @@
 <?php
-
 require __DIR__ . '/../../services/destinationservice.php';
-// require __DIR__ . '/../../models/destination.php';
 
 class DestinationController
 {
@@ -45,7 +43,7 @@ class DestinationController
             $destination->setCountry(htmlspecialchars($destinationObject['country']));
             $destination->setLongitude(htmlspecialchars($destinationObject['longitude']));
             $destination->setLatitude(htmlspecialchars($destinationObject['latitude']));
-            $destination->setDestinationId(htmlspecialchars($this->destinationService->getLastRouteId()));            
+            $destination->setRouteId($this->destinationService->getLastRouteId());            
             
             // and have the service insert the article into the database
             $this->destinationService->insert($destination);

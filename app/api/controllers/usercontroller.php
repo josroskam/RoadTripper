@@ -4,12 +4,12 @@ require __DIR__ . '/../../services/userservice.php';
 class UserController
 {
 
-    private $routeService;
+    private $userService;
 
     // initialize services
     function __construct()
     {
-        $this->routeService = new RouteService();
+        $this->userService = new UserService();
     }
 
     // router maps this to /api/article automatically
@@ -20,13 +20,6 @@ class UserController
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
             header("Access-Control-Allow-Origin: *");
             header("Access-Control-Allow-Headers: *");
-            // your code here
-            // $userData = [
-            //     "firstname" == $firstname,
-            //     "lastname" == $lastname,
-            //     "emailaddress" == $sessionEmail,
-            //     "destination" == $destination
-            // ];
 
             $userData = [
                 "firstname" == 'fname',
@@ -34,46 +27,63 @@ class UserController
                 "emailaddress" == 'email',
                 "destination" == 'dnation'
             ];
-            // echo json_enc
-            // echo json_encode($userData); 
-            // return all articles in the database as JSON
 
-            // $articles = $this->routeService->getAll();
+            // return all articles in the database as JSON
             header('Content-Type: application/json');
             echo json_encode($userData);
-
-            echo "oke jos";
         }
 
-        // Respond to a POST request to /api/article
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Respond to a DELETE request to /api/article
+        if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
             header("Access-Control-Allow-Origin: *");
-            header("Access-Control-Allow-Headers: *");
-            
-            // your code here
-            // // read JSON from the request, convert it to an article object
-            $userObject = json_decode(file_get_contents('php://input',true));
-
-            $user = new User();
-            // $user->getEmailaddress(htmlspecialchars($articleObject->title));
-            // $user->setContent(htmlspecialchars($articleObject->content));
-            // $user->setAuthor('Mark');
-            
-            
-            // // and have the service insert the article into the database
-            // $this->routeService->insert($article);
-
-            header('Content-Type: application/json');
-
-            // $userData = [
-            //     "firstname" == $firstname,
-            //     "lastname" == $lastname,
-            //     "emailaddress" == $sessionEmail,
-            //     "destination" == $destination
-            // ];
-            // echo json_encode($userData); 
-            ?><script>window.location.href="/feed"</script><?php
+            header("Access-Control-Allow-Headers: *");    
+        
+            // Get the user's email address from the session
+            $sessionEmail = "admin@user.nl";
+        
+            // Call user service to delete user
+            try {
+                $this->userService->deleteUser($sessionEmail);
+                http_response_code(200);
+                echo json_encode(['success' => true, 'message' => 'Account deleted successfully']);
+                exit;
+            } catch (Exception $e) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+                exit;
+            }
         }
     }
+
+    public function delete()
+{
+    ?><script>window.location.replace("/login");</script><?php
+    // Set CORS headers
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Headers: *");       
+
+    // Make sure this is a DELETE request
+    if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'error' => 'Invalid request method']);
+        exit;
+    }
+
+    // Get the user's email address from the session
+    $sessionEmail = $_SESSION["email"];
+
+    // Call user service to delete user
+    try {
+        $this->userService->deleteUser($sessionEmail);
+        http_response_code(200);
+        echo json_encode(['success' => true, 'message' => 'Account deleted successfully']);
+        exit;
+    } catch (Exception $e) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+        exit;
+    }
+}
+
 }
 ?>
