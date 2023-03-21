@@ -50,6 +50,7 @@ class PatternRouter
         if (file_exists($filename)) {
             require $filename;
         } else {
+            require __DIR__ . '/views/404/index.php';
             http_response_code(404);
             die();
         }

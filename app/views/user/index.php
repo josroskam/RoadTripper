@@ -1,29 +1,8 @@
 <?php
-    // session_start();
-    define('PROJECT_ROOT_PATH', __DIR__);
-    include_once (PROJECT_ROOT_PATH . '/../header/index.php');
+    require_once __DIR__ . '../../components/head.php';
+    require_once __DIR__ . '../../components/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/mystyle.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <title>Account</title>
-    <link href="../feed/css/mystyle.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
-    <style>
-        <?php include '../../app/css/mystyle.css';
-        ?>
-    </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-</head>
-
-<body>
     <div id="my-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -123,7 +102,7 @@
                                         value="<?= $user->getFavorite_Holiday_Destination() ?>" readonly />
                                 </div>
                             </div>
-                            <!-- <button id="modal-btn" type="button" class="modal-btn">Update account</button> -->
+                            <button id="modal-btn" type="button" class="modal-btn">Update account</button>
                             <br> <br>
                             <button class="btn btn-danger" type="submit" value="Submit" name="deleteAccount">Delete</button>
                             <!-- <button class="btn btn-danger" type="submit" value="Submit" name="deleteAccount" id="myBtn">Delete Account</button> -->
@@ -135,119 +114,7 @@
             </div>
         </div>
     </div>
-    <footer>
         <?php
-            // define('PROJECT_ROOT_PATH', __DIR__);
-            include_once (PROJECT_ROOT_PATH . '/../footer/index.php');
+            require_once __DIR__ . '../../components/footer.php';
         ?>
-    </footer>
-    <script>
-        // Get DOM Elements
-        const modal = document.querySelector('#my-modal');
-        const modalBtn = document.querySelector('#modal-btn');
-        const closeBtn = document.querySelector('.close');
-
-        // Events
-        modalBtn.addEventListener('click', openModal);
-        closeBtn.addEventListener('click', closeModal);
-        window.addEventListener('click', outsideClick);
-
-        // Open
-        function openModal() {
-            modal.style.display = 'block';
-        }
-
-        // Close
-        function closeModal() {
-            modal.style.display = 'none';
-            var form = document.getElementById('myForm');
-            form.reload();
-        }
-
-        // Close If Outside Click
-        function outsideClick(e) {
-            if (e.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
-        var readonly = true;
-
-        function switchReadonly() {
-            // $('#modal-btn').on('click', (e) => {
-            readonly = !readonly
-            $('input').attr('readonly', readonly);
-            // });
-            notReadonlyInput();
-        }
-
-        function notReadonlyInput() {
-            const input = document.getElementById('notreadonly');
-            readonly = true;
-            $(input).attr('readonly', readonly);
-        }
-
-        function showSaveButton() {
-            const button = document.getElementById('modal-btn2');
-            button.style.display = 'block';
-        }
-
-        function setPasswordValueToNull() {
-            var v = document.getElementById('pwd').value = '';
-        }
-
-        var alertBox = document.getElementById('alertBox');
-        var alertParagraph = document.getElementById('alertParagraph');
-
-        function userRegisteredSuccessfully(succesMessage) {
-            alertBox.className = "alert alert-success";
-            alertBox.style = "display:block"
-            alertParagraph.innerHTML = succesMessage;
-        }
-
-        function userRegisteredFailed(errorMessage) {
-            alertBox.className = "alert alert-danger";
-            alertBox.style = "display:block"
-            alertParagraph.innerHTML = errorMessage;
-        }
-
-        // $(document).ready(function(){
-        function updateFormFields() {
-            $.ajax({
-                url: "/api/user",
-                type: "GET",
-                success: function (userData) {
-                    Object.keys(userData).forEach(function (key) {
-                        // console.log(userData[key]);
-                        console.log(userData.firstname);
-                        // document.getElementById("newFirstname").value = userData[key]["firstname"];
-                    });
-                },
-                error: function (xhr, status, error) {
-                    console.log("Error: " + error);
-                }
-            });
-        }
-
-        function deleteAccount() {
-  // send a DELETE request to the server to delete the account
-  fetch('/api/user', {
-    method: 'DELETE'
-  })
-  .then(response => {
-    if (response.ok) {
-      alert("Your account has been deleted.");
-      // redirect the user to the login page
-    //   window.location.replace("/login");
-    } else {
-      alert("An error occurred while deleting your account. Please try again later.");
-    }
-  })
-  .catch(error => {
-    console.error("Error deleting account:", error);
-    alert("An error occurred while deleting your account. Please try again later.");
-  });
-}
-    </script>
-</body>
-
-</html>
+    <script src="/js/user.js"></script>

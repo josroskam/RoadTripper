@@ -1,0 +1,46 @@
+@import url(mystyle.css);
+@import url(login.css);
+@import url(modal.css);
+@import url(navbar.css);
+
+body {
+    background-color: #F8F9FA;
+    margin-top: 100px;
+}
+.error {
+    background-color: red;
+}
+
+#map {
+    height: 500px;
+    width: max;
+}
+
+/* Modal -> update account page */
+:root {
+    --modal-duration: 1s;
+    --modal-color: #32a852;
+}
+
+.hero {
+    background-color: #32a852;
+    color: #FFFFFF;
+}
+
+.p-4>a {
+    text-decoration: none;
+}
+
+.accordion-item {
+    border-color: #32a852;
+    border-style: solid 10px;
+}
+
+.btn-delete{
+    background-color: #d91919;
+    color: #FFFFFF;
+}
+
+.btn-delete:hover{
+    background-color: #b71b1b;
+}
