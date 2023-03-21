@@ -39,7 +39,7 @@ class UserController
             header("Access-Control-Allow-Headers: *");    
         
             // Get the user's email address from the session
-            $sessionEmail = "admin@user.nl";
+            $sessionEmail = $_SESSION["email"];
         
             // Call user service to delete user
             try {

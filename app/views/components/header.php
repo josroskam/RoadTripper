@@ -1,32 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">    
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <meta http-equiv="refresh" content="20"> -->
-    <link rel="stylesheet" href="/css/mystyle.css" type="text/css">
-    <link rel="icon" type="image/x-icon" href="">
-    
-    <!-- Some information about the website -->
-    <meta name="keywords" content=" 2">
-    <meta name="description" content="">
-    <meta name="author" content="Jos Roskam, The Netherlands">
-
-      <!-- Vendor CSS Files -->
-    <link href="public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="public/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="public/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="public/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> 
-
-    <link rel="stylesheet" src="mystyle.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap" rel="stylesheet">
-    <link href="php-restapi-starter/app/views/feed/mystyle.css" rel="stylesheet" type="text/css" />    
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&family=Poppins:wght@100&display=swap" rel="stylesheet">
-</head>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">YourRoadtrip.net</a>
@@ -70,4 +41,3 @@
     </div>
   </div>
 </nav>
-</html>

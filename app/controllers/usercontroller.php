@@ -1,7 +1,6 @@
 <?php
 require __DIR__ . '/controller.php';
 require __DIR__ . '/../services/userservice.php';
-session_start();
 
 class UserController extends Controller {
     private $userService;
@@ -47,21 +46,21 @@ class UserController extends Controller {
         {
             $this->deleteUser($sessionEmail);
         }
-        {        
-            $firstname = htmlspecialchars($_POST["newFirstname"]);
-            $lastname = htmlspecialchars($_POST["newLastname"]);
-            // $emailaddress = $_POST["newEmailaddress"];
-            $password = htmlspecialchars($_POST["newPassword"]);
-            $hashedPassword = htmlspecialchars(password_hash($password, PASSWORD_DEFAULT));
-            $destination = htmlspecialchars($_POST["newDestination"]);
+        // {        
+        //     $firstname = htmlspecialchars($_POST["newFirstname"]);
+        //     $lastname = htmlspecialchars($_POST["newLastname"]);
+        //     // $emailaddress = $_POST["newEmailaddress"];
+        //     $password = htmlspecialchars($_POST["newPassword"]);
+        //     $hashedPassword = htmlspecialchars(password_hash($password, PASSWORD_DEFAULT));
+        //     $destination = htmlspecialchars($_POST["newDestination"]);
 
-            if($this->emptyInput($firstname, $lastname, $password, $destination)){
-                echo "<script>userRegisteredFailed('Fields can not be empty.');</script>";
-            } else{       
-                $this->updateUser($firstname, $lastname, $hashedPassword, $destination, $sessionEmail);
-                echo "<script>updateFormFields();</script>";
-            }
-        }        
+        //     if($this->emptyInput($firstname, $lastname, $password, $destination)){
+        //         echo "<script>userRegisteredFailed('Fields can not be empty.');</script>";
+        //     } else{       
+        //         $this->updateUser($firstname, $lastname, $hashedPassword, $destination, $sessionEmail);
+        //         echo "<script>updateFormFields();</script>";
+        //     }
+        // }        
     }
 
     public function updateUser($firstname, $lastname, $hashedPassword, $destination, $sessionEmail) {
