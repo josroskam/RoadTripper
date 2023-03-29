@@ -9,7 +9,6 @@ class UserController extends Controller {
         $this->userService = new UserService();
     }
 
-    // router maps this to /article and /article/index automatically
     public function index()
     {
         $sessionEmail = $_SESSION["email"];
@@ -21,9 +20,7 @@ class UserController extends Controller {
         // Handle post request
         // User needs to verifify password before user can make changes
         if(isset($_POST["passwordCheck"]))
-        {
             $this->checkUser($sessionEmail);
-        }
 
         if(isset($_POST["updateAccount"]))
         {        
@@ -46,21 +43,6 @@ class UserController extends Controller {
         {
             $this->deleteUser($sessionEmail);
         }
-        // {        
-        //     $firstname = htmlspecialchars($_POST["newFirstname"]);
-        //     $lastname = htmlspecialchars($_POST["newLastname"]);
-        //     // $emailaddress = $_POST["newEmailaddress"];
-        //     $password = htmlspecialchars($_POST["newPassword"]);
-        //     $hashedPassword = htmlspecialchars(password_hash($password, PASSWORD_DEFAULT));
-        //     $destination = htmlspecialchars($_POST["newDestination"]);
-
-        //     if($this->emptyInput($firstname, $lastname, $password, $destination)){
-        //         echo "<script>userRegisteredFailed('Fields can not be empty.');</script>";
-        //     } else{       
-        //         $this->updateUser($firstname, $lastname, $hashedPassword, $destination, $sessionEmail);
-        //         echo "<script>updateFormFields();</script>";
-        //     }
-        // }        
     }
 
     public function updateUser($firstname, $lastname, $hashedPassword, $destination, $sessionEmail) {
@@ -95,7 +77,7 @@ class UserController extends Controller {
     private function deleteUser($sessionEmail){
         $this->userService->deleteUser($sessionEmail);
         echo "<script>userRegisteredSuccessfully('Account successfully deleted!');</script>";
-        echo "<script>window.location.replace('/logout');</script>";
+        header('Location: /logout');
     }
 }
 ?>

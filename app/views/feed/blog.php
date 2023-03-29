@@ -1,35 +1,40 @@
-<div class="col-md-4">
-        <div class="position-sticky" style="top: 2rem;">
-          <div class="p-4 mb-3 rounded">
-            <h4 class="fst-italic">Add a route</h4>
-            <p class="mb-0">Personalise your own route, and share it with others.</p><br>
+<div class="col-md-8">
+        <h3 class="pb-4 mb-4 fst-italic border-bottom">
             <?php
-          if(isset($_SESSION["firstname"])){
+                if ($dictionary != null){
+                  echo "Last added routes";
+                } else{
+                  echo "No routes found in the database, add one!";
+                }
+
+          ?>
+        </h3>
+        <?php
+        $routeCounter = 1;
+        foreach ($dictionary as $key => $value) {
+          if (strpos($key, 'route_') === 0) {
             ?>
-            <a href="/newroute">Check it out <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                fill="currentColor" class="bi bi-arrow-up-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                  d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0v-6z" />
-              </svg></a>
+        <article class="blog-post">
+            <h2 class="blog-post-title mb-1"><?php echo $value["route"]->getTitle(); ?></h2>
+            <p class="blog-post-meta">Posted at: <?php echo $value["route"]->getPostedAt(); ?> by:
+                <?php echo $value["route"]->getAuthorId(); ?></p>
+            <p>Description: <?php echo $value["route"]->getDescription(); ?></p>
             <?php
-          } 
-          else
-          {
-            ?>
-            <a href="/login">You must login first to add a new route <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                height="16" fill="currentColor" class="bi bi-arrow-up-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                  d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0v-6z" />
-              </svg></a>
+        for ($j = 0; $j < count($value["destinations"]); $j++) {
+          $destination = $value["destinations"][$j];
+          ?>
+            <p>Destination number: <?php echo $j + 1?><br>
+                Address: <?php echo $destination->getAddress(); ?><br>
+                City: <?php echo $destination->getCity(); ?><br>
+                Country: <?php echo $destination->getCountry(); ?><br>
+            </p>
             <?php
-          }
+        }
         ?>
-          </div>
-          <div class="p-4 mb-3 rounded">
-            <h4 class="fst-italic">Incoming new features</h4>
-            <p class="mb-0">www.yourroadtrip.net will expand and will let you experience the best routes provided by
-              train! Coming up on the end of June 2023!</p>
-          </div>
-        </div>
-      </div>
+        </article>
+        <?php
+          }
+        }
+        $routeCounter++;
+       ?>
     </div>

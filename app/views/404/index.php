@@ -64,9 +64,6 @@
 </style>
 
 <div class="container">
-    <!-- <div class="illustration">
-        <img src="/assets/images/404-illustration.png" alt="404 illustration">
-    </div> -->
     <h1 class="error-page">Oops! 404</h1>
             <p>Alas! The page you seek is lost,</p>
             <p>But we'll help you find the path you must.</p>

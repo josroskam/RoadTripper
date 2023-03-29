@@ -34,8 +34,6 @@ class FeedController extends Controller {
         } else{
             include './../views/feed/index.php';
         }
-
-
     }
 
     public function displayView($dictionary) {

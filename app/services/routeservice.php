@@ -1,29 +1,26 @@
 <?php
 require_once( __DIR__ . '/../repositories/routerepository.php');
 
-
 class RouteService {
+    private $repository;
+    function __construct() {
+        $this->repository = new RouteRepository();
+    }
     public function getAll() {
-        // retrieve data
-        $repository = new RouteRepository();
-        $articles = $repository->getAll();
-        return $articles;
+        $routes = $this->repository->getAll();
+        return $routes;
     }
 
     public function insertRoute($newRowId, $title, $description, $author, $posted_at) {
-        // retrieve data
-        $repository = new RouteRepository();
-        return $repository->insertRoute($newRowId, $title, $description, $author, $posted_at);        
+        return $this->repository->insertRoute($newRowId, $title, $description, $author, $posted_at);        
     }
 
     public function getLastRouteId(){
-        $repository = new RouteRepository();
-        return $repository->getLastRouteId();
+        return $this->repository->getLastRouteId();
     }
 
     public function getDestinationsForRoute($route_id){
-        $repository = new RouteRepository();
-        return $repository->getDestinationsForRoute($route_id);
+        return $this->repository->getDestinationsForRoute($route_id);
     }
 }
 ?>

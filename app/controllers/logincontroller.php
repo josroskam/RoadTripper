@@ -13,20 +13,17 @@ class LoginController extends Controller {
 
     public function index() {
         if(isset($_SESSION["firstname"])){
-            ?><script>window.location = '/feed';</script><?php
+            header('Location: /logout');
         } else {
             require __DIR__ . '/../views/login/index.php';
-            if (isset($_POST["LoginUser"])) {
-                $this->setLoginUserVariables();
-            }
+            if (isset($_POST["LoginUser"])) 
+                $this->setLoginUserVariables();            
 
-            if (isset($_POST["SubmitNewUser"])) {
-                $this->setNewUserVariables();
-            }
+            if (isset($_POST["SubmitNewUser"])) 
+                $this->setNewUserVariables();            
 
-            if (isset($_POST["logout"])) {
-                ?><script>window.location = '/logout';</script><?php
-            } 
+            if (isset($_POST["logout"])) 
+                header('Location: /logout');
         } 
     }
 
