@@ -1,16 +1,11 @@
-# Project The Festival 2
-
-## Hosting
-
-The project is hosted on a server at []()
+# RoadTrip website
 
 ## Users
 
-| Username | Password | Role     |
-| -------- | -------- | -------- |
-| admin    | 123      | Admin    |
-| test     | 123      | Employee |
-| TBD      | TBD      | User     |
+| Emailaddress    | Password         |
+| --------------- | ---------------- |
+| admin@user.nl   | lettheadminin123 |
+| lruud@webdev.nl | lruud123         |
 
 # php-starter-template
 
@@ -32,16 +27,13 @@ It contains:
 
 In a terminal, run:
 
-```bash
 docker-compose up
+NGINX will now serve files in the app/public folder. Visit localhost in your browser to check. PHPMyAdmin is accessible on localhost:8080
+
+If you want to stop the containers, press Ctrl+C. Or run:
+
+docker-compose down
+
 ```
 
-NGINX will now serve files in the app/public folder. Visit localhost in your browser to check.
-PHPMyAdmin is accessible on localhost:8080
-
-If you want to stop the containers, press Ctrl+C.
-Or run:
-
-```bash
-docker-compose down
 ```
