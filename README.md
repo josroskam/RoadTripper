@@ -18,3 +18,4 @@ NGINX will now serve files in the app/public folder. Visit localhost in your bro
 If you want to stop the containers, press Ctrl+C. Or run:
 
 docker-compose down
+r
