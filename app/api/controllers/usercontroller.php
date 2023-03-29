@@ -43,7 +43,12 @@ class UserController
             try {
                 $this->userService->deleteUser($sessionEmail);
                 http_response_code(200);
-                echo json_encode(['success' => true, 'message' => 'Account deleted successfully']);
+                echo json_encode(['success' => true,
+                 'message' => 'Account deleted successfully'
+                ])
+                ;
+                header("Location: /logout");
+
                 exit;
             } catch (Exception $e) {
                 http_response_code(400);
@@ -52,36 +57,5 @@ class UserController
             }
         }
     }
-
-    public function delete()
-{
-    ?><script>window.location.replace("/login");</script><?php
-    // Set CORS headers
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: *");       
-
-    // Make sure this is a DELETE request
-    if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
-        http_response_code(400);
-        echo json_encode(['success' => false, 'error' => 'Invalid request method']);
-        exit;
-    }
-
-    // Get the user's email address from the session
-    $sessionEmail = $_SESSION["email"];
-
-    // Call user service to delete user
-    try {
-        $this->userService->deleteUser($sessionEmail);
-        http_response_code(200);
-        echo json_encode(['success' => true, 'message' => 'Account deleted successfully']);
-        exit;
-    } catch (Exception $e) {
-        http_response_code(400);
-        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
-        exit;
-    }
-}
-
 }
 ?>

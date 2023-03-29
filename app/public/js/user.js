@@ -83,6 +83,9 @@
             });
         }
 
+        const deleteButton = document.querySelector('#deleteAccount');
+        deleteButton.addEventListener('click', deleteAccount);
+
         function deleteAccount() {
         // send a DELETE request to the server to delete the account
         fetch('/api/user', {
@@ -90,7 +93,8 @@
         })
         .then(response => {
             if (response.ok) {
-            alert("Your account has been deleted.");
+            // if the account was successfully deleted, redirect the user to the homepage
+            window.location.replace('/logout');
             } else {
             alert("An error occurred while deleting your account. Please try again later.");
             }
