@@ -1,4 +1,7 @@
-This repository demonstrates how the MVC design pattern can be implemented using PHP.
+<h1>RoadTrip website WebDev 1</h1>
+<br>
+
+This repository is for educational purposes.
 
 It contains a docker configuration with:
 
@@ -6,7 +9,8 @@ NGINX webserver
 PHP FastCGI Process Manager with PDO MySQL support
 MariaDB (GPL MySQL fork)
 PHPMyAdmin
-Installation
+
+<h2>Installation</h2>
 Install Docker Desktop on Windows or Mac, or Docker Engine on Linux.
 Clone the project
 Usage
