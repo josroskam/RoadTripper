@@ -38,11 +38,6 @@ class UserController extends Controller {
                 echo "<script>updateFormFields();</script>";
             }
         }       
-        
-        if(isset($_POST["deleteAccount"]))
-        {
-            $this->deleteUser($sessionEmail);
-        }
     }
 
     public function updateUser($firstname, $lastname, $hashedPassword, $destination, $sessionEmail) {
@@ -72,12 +67,6 @@ class UserController extends Controller {
         if(empty($firstname) || empty($lastname) || empty($password) || empty($destination))
             return true;
         return false;
-    }
-
-    private function deleteUser($sessionEmail){
-        $this->userService->deleteUser($sessionEmail);
-        echo "<script>userRegisteredSuccessfully('Account successfully deleted!');</script>";
-        header('Location: /logout');
     }
 }
 ?>

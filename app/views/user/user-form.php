@@ -67,8 +67,7 @@
                             </div>
                             <button id="modal-btn" type="button" class="modal-btn">Update account</button>
                             <br> <br>
-                            <button class="btn btn-danger" type="submit" value="Submit" name="deleteAccount">Delete</button>
-                            <!-- <button class="btn btn-danger" type="submit" value="Submit" name="deleteAccount" id="myBtn">Delete Account</button> -->
+                            <button class="btn btn-danger" type="button" value="Submit" id="deleteAccount">Delete</button>
                             <button id="modal-btn2" type="Submit" name="updateAccount" onclick="updateAccount()" class="modal-btn mt-2" style="display:none">Save changes</button>
                         </div>
                         <?php }?>
