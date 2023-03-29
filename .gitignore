@@ -1,0 +1,6 @@
+vendor/
+vendor/*
+.DS_Store
+.vscode/
+#test
+uploads/

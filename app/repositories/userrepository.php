@@ -8,7 +8,7 @@ class UserRepository extends Repository
     function getAllUsers()
     {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM user");
+            $stmt = $this->connection->prepare("SELECT user_id, firstname, lastname, emailaddress, hashedpassword, favorite_holiday_destination FROM user");
             $stmt->execute();
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
@@ -23,7 +23,7 @@ class UserRepository extends Repository
     function getUserById($emailaddress)
     {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM user WHERE emailaddress = ?");
+            $stmt = $this->connection->prepare("SELECT user_id, firstname, lastname, emailaddress, hashedpassword, favorite_holiday_destination FROM user WHERE emailaddress = ?");
             $stmt->execute(array($emailaddress));
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
@@ -69,7 +69,7 @@ class UserRepository extends Repository
             }
 
             else if($checkPassword == true){
-                $stmt = $this->connection->prepare('SELECT * FROM user WHERE emailaddress = ? AND hashedpassword = ?;');
+                $stmt = $this->connection->prepare('SELECT user_id, firstname, lastname, emailaddress, hashedpassword, favorite_holiday_destination FROM user WHERE emailaddress = ? AND hashedpassword = ?;');
                 if(!$stmt->execute(array($emailaddress, $passwordHashed[0]["hashedpassword"]))){
                     $stmt = null;
                     exit();
@@ -91,7 +91,7 @@ class UserRepository extends Repository
 
     function getUser($email, $password) {
         try {
-            $stmt = $this->connection->prepare('SELECT * FROM user WHERE emailaddress = ?;');
+            $stmt = $this->connection->prepare('SELECT user_id, firstname, lastname, emailaddress, hashedpassword, favorite_holiday_destination FROM user WHERE emailaddress = ?;');
             $stmt->execute([$email]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
             if (!$user || !password_verify($password, $user['hashedpassword'])) {
@@ -112,7 +112,7 @@ class UserRepository extends Repository
     function checkUserExists($emailaddress)
     {
         try{
-            $sql = "SELECT * FROM user WHERE emailaddress = :email";
+            $sql = "SELECT user_id, firstname, lastname, emailaddress, hashedpassword, favorite_holiday_destination FROM user WHERE emailaddress = :email";
             $stmt = $this->connection->prepare($sql);
             $stmt->execute(array(':email' => $emailaddress));
             

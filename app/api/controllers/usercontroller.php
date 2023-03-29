@@ -3,7 +3,6 @@ require __DIR__ . '/../../services/userservice.php';
 
 class UserController
 {
-
     private $userService;
 
     // initialize services
@@ -15,7 +14,6 @@ class UserController
     // router maps this to /api/article automatically
     public function index()
     {
-
         // Respond to a GET request to /api/article
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
             header("Access-Control-Allow-Origin: *");

@@ -74,9 +74,7 @@
                 type: "GET",
                 success: function (userData) {
                     Object.keys(userData).forEach(function (key) {
-                        // console.log(userData[key]);
                         console.log(userData.firstname);
-                        // document.getElementById("newFirstname").value = userData[key]["firstname"];
                     });
                 },
                 error: function (xhr, status, error) {
@@ -93,8 +91,6 @@
         .then(response => {
             if (response.ok) {
             alert("Your account has been deleted.");
-            // redirect the user to the login page
-            //   window.location.replace("/login");
             } else {
             alert("An error occurred while deleting your account. Please try again later.");
             }

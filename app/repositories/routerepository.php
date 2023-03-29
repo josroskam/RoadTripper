@@ -55,13 +55,13 @@ class RouteRepository extends Repository
 
     function getDestinationsForRoute($route_id){
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM destination WHERE route_id = ?");
+            $stmt = $this->connection->prepare("SELECT destination_id, address, city, country, longitute, latitude, route_id FROM destination WHERE route_id = ?");
             $stmt->execute(array($route_id));
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'Destination');
-            $articles = $stmt->fetchAll();
+            $destinations = $stmt->fetchAll();
 
-            return $articles;
+            return $destinations;
         } catch (PDOException $e) {
             echo $e;
         }
