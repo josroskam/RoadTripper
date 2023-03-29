@@ -1,16 +1,11 @@
-# Project The Festival 2
-
-## Hosting
-
-The project is hosted on a server at []()
+# RoadTrip website
 
 ## Users
 
-| Username | Password | Role     |
-|----------|----------|----------|
-| admin    | 123      | Admin    |
-| test     | 123      | Employee |
-| TBD      | TBD      | User     |
+| Emailaddress    | Password         | 
+|-----------------|------------------|
+| admin@user.nl   | lettheadminin123 | 
+| lruud@webdev.nl | lruud123         | 
 
 # php-starter-template
 
