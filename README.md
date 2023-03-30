@@ -1,4 +1,6 @@
-# RoadTrip website
+# RoadTrip website 
+
+Jos Roskam 688047 Inf2a
 
 ## Users
 
