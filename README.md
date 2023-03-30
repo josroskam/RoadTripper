@@ -1,6 +1,6 @@
 # RoadTrip website 
 
-Jos Roskam 688047 Inf2a
+Made with pride by: Jos Roskam 688047 Inf2a
 
 ## Users
 
