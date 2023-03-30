@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Nov 30, 2021 at 02:48 PM
--- Server version: 10.6.4-MariaDB-1:10.6.4+maria~focal
--- PHP Version: 7.4.25
+-- Gegenereerd op: 30 mrt 2023 om 08:18
+-- Serverversie: 10.9.4-MariaDB-1:10.9.4+maria~ubu2204
+-- PHP-versie: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,53 +24,145 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `article`
+-- Tabelstructuur voor tabel `destination`
 --
 
-CREATE TABLE `article` (
-  `id` int(11) NOT NULL,
+CREATE TABLE `destination` (
+  `destination_id` int(11) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `longitute` varchar(255) NOT NULL,
+  `latitude` varchar(255) NOT NULL,
+  `route_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `destination`
+--
+
+INSERT INTO `destination` (`destination_id`, `address`, `city`, `country`, `longitute`, `latitude`, `route_id`) VALUES
+(147, 'Julianalaan undefined', 'Heemstede', 'Nederland', '4.623871', '52.352911', 53),
+(149, 'Marienplatz 18', 'München', 'Duitsland', '11.576157', '48.136767', 53),
+(150, 'Kirchgasse 16', 'Kaprun', 'Oostenrijk', '12.756414', '47.273354', 53),
+(151, 'Piazza San Martino 4', 'Bologna', 'Italië', '11.34613', '44.496723', 53),
+(152, 'Via Roma 86', 'Rimini', 'Italië', '12.578144', '44.060768', 53),
+(153, 'Glagoljaška 10', 'Split', 'Kroatië', '16.44516', '43.508832', 53),
+(154, 'Miramarska cesta 5/1', 'Zagreb', 'Kroatië', '15.976181', '45.803967', 53),
+(155, 'Gyógy tér 2', 'Balatonfüred', 'Hongarije', '17.898102', '46.956134', 56),
+(156, 'Szentkirályi utca 8', 'Boedapest', 'Hongarije', '19.065399', '47.494034', 56),
+(157, 'Pri nemocnici undefined', 'Košice', 'Slowakije', '21.253052', '48.709289', 56),
+(158, '3629 undefined', 'Holčíkovce', 'Slowakije', '21.723962', '49.016457', 56),
+(159, 'Generała Romana Sołtyka undefined', 'Krakau', 'Polen', '19.93907', '50.060672', 56),
+(160, 'Schwimmbadbrücke undefined', 'Kassel', 'Duitsland', '9.503174', '51.297039', 56);
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `route`
+--
+
+CREATE TABLE `route` (
+  `route_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `content` varchar(10000) NOT NULL,
-  `author` varchar(255) NOT NULL,
+  `route_description` varchar(255) NOT NULL,
+  `author_id` int(11) NOT NULL,
   `posted_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `article`
+-- Gegevens worden geëxporteerd voor tabel `route`
 --
 
-INSERT INTO `article` (`id`, `title`, `content`, `author`, `posted_at`) VALUES
-(1, 'test title', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris porta mauris nisl, vel iaculis quam venenatis quis. Quisque id efficitur dui, eget tempor erat. Fusce hendrerit, sem non porttitor semper, nunc metus pharetra sem, a ultrices lorem leo nec arcu. Vestibulum at interdum velit. Suspendisse vulputate rutrum libero, id placerat ipsum lacinia eu. Fusce vel orci eget augue maximus rhoncus eu non nisl. Cras id sodales risus. Mauris sed ullamcorper lacus, a tempus orci. Donec dignissim ipsum at varius commodo. Nulla a sapien aliquam, maximus neque non, vehicula libero. Nulla a varius purus, at tincidunt diam. Morbi sed urna a diam pretium tincidunt nec at neque. Aliquam consectetur at turpis at consequat. Sed dapibus, quam vel faucibus malesuada, dui lectus lacinia felis, porta posuere dui odio id enim. Vivamus molestie pharetra leo, vitae mattis sapien congue non. Etiam dapibus, diam at interdum tempus, ligula augue commodo nulla, vel fermentum elit est vel justo.', 'test author', '2021-11-30 13:09:55');
+INSERT INTO `route` (`route_id`, `title`, `route_description`, `author_id`, `posted_at`) VALUES
+(52, 'Rondje Haarlem!', 'Voor op je oude dag..', 23, '2023-03-21 00:00:00'),
+(53, 'Cultuur snuiven', 'Paar random steden', 23, '2023-03-21 00:00:00'),
+(56, 'Roadtripping trough Europe!', 'SEVEN! countries to visit', 27, '2023-03-29 00:00:00');
 
-INSERT INTO `article` (`id`, `title`, `content`, `author`, `posted_at`) VALUES
-(2, 'test title', 'Donec fermentum porttitor metus, quis pulvinar elit ornare congue. Donec dapibus est ut metus fermentum ultricies. Ut eu turpis facilisis, dignissim sem porttitor, congue libero. Fusce volutpat facilisis interdum. Mauris vulputate ultricies mauris a facilisis. Maecenas tincidunt efficitur tincidunt. Etiam tempor maximus tincidunt.', 'test author', '2021-11-30 13:09:55');
-
-INSERT INTO `article` (`id`, `title`, `content`, `author`, `posted_at`) VALUES
-(3, 'test title', 'Mauris id feugiat lectus, ut efficitur tellus. Phasellus a arcu vel urna venenatis laoreet. Nullam congue sem ac erat aliquet, ac pulvinar felis fermentum. Sed rutrum nulla sit amet porta suscipit. Etiam consectetur mauris ac arcu scelerisque, ut blandit lectus porta. Pellentesque at ligula a lacus mattis laoreet. Nulla finibus volutpat velit a finibus. In nec condimentum erat. Aliquam erat volutpat. Vestibulum molestie finibus lorem quis egestas. Fusce id mi ac nisl vehicula laoreet. Cras molestie dolor eget nunc laoreet, et sodales velit mollis. Aliquam dignissim leo quis dolor varius, at molestie est hendrerit. Sed lorem tellus, rhoncus at dignissim ac, euismod id sem. Quisque facilisis felis eget ex mattis, sed pretium magna pulvinar. Etiam tincidunt sodales ultrices.', 'test author', '2021-11-30 13:09:55');INSERT INTO `article` (`id`, `title`, `content`, `author`, `posted_at`) VALUES
-(5, 'test title', 'Mauris id feugiat lectus, ut efficitur tellus. Phasellus a arcu vel urna venenatis laoreet. Nullam congue sem ac erat aliquet, ac pulvinar felis fermentum. Sed rutrum nulla sit amet porta suscipit. Etiam consectetur mauris ac arcu scelerisque, ut blandit lectus porta. Pellentesque at ligula a lacus mattis laoreet. Nulla finibus volutpat velit a finibus. In nec condimentum erat. Aliquam erat volutpat. Vestibulum molestie finibus lorem quis egestas. Fusce id mi ac nisl vehicula laoreet. Cras molestie dolor eget nunc laoreet, et sodales velit mollis. Aliquam dignissim leo quis dolor varius, at molestie est hendrerit. Sed lorem tellus, rhoncus at dignissim ac, euismod id sem. Quisque facilisis felis eget ex mattis, sed pretium magna pulvinar. Etiam tincidunt sodales ultrices.', 'test author', '2021-11-30 13:09:55');
-
-INSERT INTO `article` (`id`, `title`, `content`, `author`, `posted_at`) VALUES
-(4, 'test title', 'Curabitur ultricies est malesuada ante laoreet condimentum. Nam ullamcorper, mi at dignissim dignissim, turpis tortor tristique ligula, sed rhoncus ipsum sapien sit amet lacus. Curabitur ligula risus, vulputate vel urna ac, gravida maximus erat. Nunc odio urna, sagittis non mi eu, semper tristique magna. Cras vitae mi nec ex sollicitudin hendrerit et vitae urna. Praesent posuere sem in lectus dignissim viverra. Vivamus neque metus, rhoncus ac arcu vel, eleifend molestie neque. Fusce eget varius massa. Praesent eleifend nunc leo, et pretium sapien volutpat a. Nulla consectetur facilisis sapien, at rhoncus nibh cursus maximus. Donec at eleifend lacus, quis mollis eros. Fusce dui augue, rutrum sit amet ipsum porttitor, convallis congue sapien.', 'test author', '2021-11-30 13:09:55');
+-- --------------------------------------------------------
 
 --
--- Indexes for dumped tables
+-- Tabelstructuur voor tabel `user`
+--
+
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `emailaddress` varchar(255) NOT NULL,
+  `hashedpassword` varchar(255) NOT NULL,
+  `favorite_holiday_destination` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `user`
+--
+
+INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `emailaddress`, `hashedpassword`, `favorite_holiday_destination`) VALUES
+(23, 'Admin', 'Admin', 'admin@user.nl', '$2y$10$f1dpdc2E2/LuzPA.hjLvnOOd0XmiGvbuvUIS5KahuXyAwjxqD6Thi', 'admin'),
+(27, 'Lennard', 'Ruud', 'lruud@webdev.nl', '$2y$10$LkmAa3kU80pdQkG.pzquP.beo9A9JwF7Adxs9eDOVE0vM1GJ/mvDu', 'Vlieland');
+
+--
+-- Indexen voor geëxporteerde tabellen
 --
 
 --
--- Indexes for table `article`
+-- Indexen voor tabel `destination`
 --
-ALTER TABLE `article`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `destination`
+  ADD PRIMARY KEY (`destination_id`),
+  ADD KEY `route_id` (`route_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indexen voor tabel `route`
+--
+ALTER TABLE `route`
+  ADD PRIMARY KEY (`route_id`),
+  ADD KEY `author_id` (`author_id`);
+
+--
+-- Indexen voor tabel `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
 --
--- AUTO_INCREMENT for table `article`
+-- AUTO_INCREMENT voor een tabel `destination`
 --
-ALTER TABLE `article`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `destination`
+  MODIFY `destination_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+
+--
+-- AUTO_INCREMENT voor een tabel `route`
+--
+ALTER TABLE `route`
+  MODIFY `route_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+
+--
+-- AUTO_INCREMENT voor een tabel `user`
+--
+ALTER TABLE `user`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- Beperkingen voor geëxporteerde tabellen
+--
+
+--
+-- Beperkingen voor tabel `destination`
+--
+ALTER TABLE `destination`
+  ADD CONSTRAINT `destination_ibfk_2` FOREIGN KEY (`route_id`) REFERENCES `route` (`route_id`) ON DELETE CASCADE;
+
+--
+-- Beperkingen voor tabel `route`
+--
+ALTER TABLE `route`
+  ADD CONSTRAINT `route_ibfk_2` FOREIGN KEY (`author_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
