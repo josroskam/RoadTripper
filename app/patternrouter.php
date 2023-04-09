@@ -54,6 +54,7 @@ class PatternRouter
             http_response_code(404);
             die();
         }
+        
         // dynamically call relevant controller method
         try {
             $controllerObj = new $controllerName;

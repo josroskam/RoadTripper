@@ -1,12 +1,12 @@
 <?php
 
 class User implements JsonSerializable{
-    private int $user_id;
-    private string $firstname;
-    private string $lastname;
-    private string $emailaddress;
-    private string $password;
-    private string $favorite_holiday_destination;
+    private $user_id;
+    private $firstname;
+    private $lastname;
+    private $emailaddress;
+    private $password;
+    private $favorite_holiday_destination;
 
     public function __construct() {
         // allocate your stuff
@@ -23,148 +23,61 @@ class User implements JsonSerializable{
         return $instance;
     }
 
-    // $student = Student::withID( $id );
-
-    public function jsonSerialize() : mixed{
+    public function jsonSerialize(){
         return get_object_vars($this);
     }
     
-    /**
-     * Get the value of id
-     *
-     * @return int
-     */
-    public function getId(): int
-    {
+    public function getId() {
         return $this->user_id;
     }
 
-    /**
-     * Set the value of id
-     *
-     * @param int $id
-     *
-     * @return self
-     */
-    public function setId(int $user_id): self
-    {
+    public function setId($user_id) {
         $this->user_id = $user_id;
-
         return $this;
     }
 
-    /**
-     * Get the value of title
-     *
-     * @return string
-     */
-    public function getFirstname(): string
-    {
+    public function getFirstname() {
         return $this->firstname;
     }
 
-    /**
-     * Set the value of firstname
-     *
-     * @param string $firstname
-     *
-     * @return self
-     */
-    public function setFirstname(string $firstname): self
-    {
+    public function setFirstname($firstname) {
         $this->firstname = $firstname;
-
         return $this;
     }
 
-    /**
-     * Get the value of lastname
-     *
-     * @return string
-     */
-    public function getLastname(): string
-    {
+    public function getLastname() {
         return $this->lastname;
     }
 
-    /**
-     * Set the value of lastname
-     *
-     * @param string $lastname
-     *
-     * @return self
-     */
-    public function setLastname(string $lastname): self
-    {
+    public function setLastname($lastname) {
         $this->lastname = $lastname;
-
         return $this;
     }
 
-    /**
-     * Get the value of emailaddress
-     *
-     * @return string
-     */
-    public function getEmailaddress(): string
-    {
+    public function getEmailaddress() {
         return $this->emailaddress;
     }
 
-    /**
-     * Set the value of emailaddress
-     *
-     * @param string $emailaddress
-     *
-     * @return self
-     */
-    public function setEmailaddress(string $emailaddress): self
-    {
+    public function setEmailaddress($emailaddress) {
         $this->emailaddress = $emailaddress;
-
         return $this;
     }
 
-    /**
-     * Get the value of password
-     *
-     * @return string
-     */
-    public function getPassword(): string
-    {
+    public function getPassword() {
         return $this->password;
     }
 
-    /**
-     * Set the value of password
-     *
-     * @param string $password
-     *
-     * @return self
-     */
-    public function setPassword(string $password): self
-    {
+    public function setPassword($password) {
         $this->password = $password;
-
         return $this;
     }
 
-    public function getFavorite_Holiday_Destination(): string
-    {
+    public function getFavorite_Holiday_Destination() {
         return $this->favorite_holiday_destination;
     }
 
-    /**
-     * Set the value of favorite_holiday_destination
-     *
-     * @param string $favorite_holiday_destination
-     *
-     * @return self
-     */
-    public function setFavorite_Holiday_Destination(string $favorite_holiday_destination): self
-    {
+    public function setFavorite_Holiday_Destination($favorite_holiday_destination) {
         $this->favorite_holiday_destination = $favorite_holiday_destination;
-
         return $this;
     }
 }

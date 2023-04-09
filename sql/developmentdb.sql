@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Gegenereerd op: 30 mrt 2023 om 08:18
+-- Gegenereerd op: 09 apr 2023 om 13:07
 -- Serverversie: 10.9.4-MariaDB-1:10.9.4+maria~ubu2204
 -- PHP-versie: 8.0.25
 
@@ -54,7 +54,8 @@ INSERT INTO `destination` (`destination_id`, `address`, `city`, `country`, `long
 (157, 'Pri nemocnici undefined', 'Košice', 'Slowakije', '21.253052', '48.709289', 56),
 (158, '3629 undefined', 'Holčíkovce', 'Slowakije', '21.723962', '49.016457', 56),
 (159, 'Generała Romana Sołtyka undefined', 'Krakau', 'Polen', '19.93907', '50.060672', 56),
-(160, 'Schwimmbadbrücke undefined', 'Kassel', 'Duitsland', '9.503174', '51.297039', 56);
+(160, 'Schwimmbadbrücke undefined', 'Kassel', 'Duitsland', '9.503174', '51.297039', 56),
+(161, 'Voorhelmstraat 25-305', 'Haarlem', 'Nederland', '4.636917', '52.373922', 56);
 
 -- --------------------------------------------------------
 
@@ -134,13 +135,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT voor een tabel `destination`
 --
 ALTER TABLE `destination`
-  MODIFY `destination_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+  MODIFY `destination_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
 
 --
 -- AUTO_INCREMENT voor een tabel `route`
 --
 ALTER TABLE `route`
-  MODIFY `route_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `route_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT voor een tabel `user`

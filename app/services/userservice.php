@@ -28,9 +28,7 @@ class UserService {
     }
 
     public function checkUserExists($email){
-        if ($this->repository->checkUserExists($email))
-            return false;
-        return true;
+        return $this->repository->checkUserExists($email);
     }
 
     public function updateUser($firstname, $lastname, $password, $favorite_holiday_destination, $currentEmail){

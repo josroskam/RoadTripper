@@ -4,22 +4,6 @@ require __DIR__ . '/../models/user.php';
 
 class UserRepository extends Repository
 {
-    // get all users
-    function getAllUsers()
-    {
-        try {
-            $stmt = $this->connection->prepare("SELECT user_id, firstname, lastname, emailaddress, hashedpassword, favorite_holiday_destination FROM user");
-            $stmt->execute();
-
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
-            $articles = $stmt->fetchAll();
-
-            return $articles;
-        } catch (PDOException $e) {
-            echo $e;
-        }
-    }
-
     function getUserById($emailaddress)
     {
         try {
@@ -112,13 +96,13 @@ class UserRepository extends Repository
     function checkUserExists($emailaddress)
     {
         try{
-            $sql = "SELECT user_id, firstname, lastname, emailaddress, hashedpassword, favorite_holiday_destination FROM user WHERE emailaddress = :email";
+            $sql = "SELECT user_id FROM user WHERE emailaddress = :email";
             $stmt = $this->connection->prepare($sql);
             $stmt->execute(array(':email' => $emailaddress));
             
             if($stmt->rowCount() > 0)
-                return false;
-            return true;
+                return true;
+            return false;
         }
         catch(PDOException $e){
             echo $e;

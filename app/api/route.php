@@ -2,12 +2,12 @@
 
 class Route implements JsonSerializable{
 
-    private $route_id;
-    private $title;
-    private $route_description;
-    // private $author_id;
-    private $firstname;
-    private $posted_at;
+    private int $route_id;
+    private string $title;
+    private string $route_description;
+    // private int $author_id;
+    private string $firstname;
+    private string $posted_at;
 
     public function __construct() {
         // allocate your stuff
@@ -23,7 +23,7 @@ class Route implements JsonSerializable{
         return $route;
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize() : mixed{
         return get_object_vars($this);
     }
 
@@ -67,6 +67,5 @@ class Route implements JsonSerializable{
         $this->posted_at = $posted_at;
     }
 }
-
 
 ?>

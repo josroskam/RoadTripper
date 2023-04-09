@@ -10,35 +10,34 @@ class FeedController extends Controller {
     }
 
     public function index() {
-        // retrieve data 
+        // Retrieve data 
         $routes = $this->routeService->getAll();
-        $num_routes = count($routes);
 
-        $dictionary = array();
-
-        // if number of routes is 0, then there are no routes
-        if ($num_routes != 0) {
-            for ($i = 0; $i < $num_routes; $i++) {
-                $route = $routes[$i];
-                $destinations = $this->routeService->getDestinationsForRoute($route->getRouteId());
-                $num_destinations = count($destinations);
-                $dictionary["route_$i"] = array(
-                    "route" => $route,
-                    "destinations" => array()
-                );
-                for ($j = 0; $j < $num_destinations; $j++) {
-                    $dictionary["route_$i"]["destinations"][] = $destinations[$j];
-                }
-            }        
-            $this->displayView($dictionary);
-        } else{
-            include './../views/feed/index.php';
+        // If there are no routes, display the index view
+        if (empty($routes)) {
+            include __DIR__ . '/../views/feed/index.php';
+            return;
         }
+
+        $dictionary = $this->FillDictionary($routes);
+
+        extract($dictionary);
+        include __DIR__ . '/../views/feed/index.php';
     }
 
-    public function displayView($dictionary) {
-        extract($dictionary);
-        include './../views/feed/index.php';
+    // Fill the dictionary with data
+    private function FillDictionary($routes) {
+        $dictionary = [];
+
+        // Loop through the routes and fetch destinations for each route
+        foreach ($routes as $index => $route) {
+            $destinations = $this->routeService->getDestinationsForRoute($route->getRouteId());
+            $dictionary["route_$index"] = [
+                "route" => $route,
+                "destinations" => $destinations
+            ];
+        }
+        return $dictionary;
     }
 }
 ?>

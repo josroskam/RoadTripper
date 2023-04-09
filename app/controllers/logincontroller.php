@@ -50,7 +50,7 @@ class LoginController extends Controller {
             echo "<script>userRegisteredFailed('Emailaddress is invalid');</script>";
         else if($this->pwdMatch($password, $passwordrepeat) == false)
             echo "<script>userRegisteredFailed('Passwords do not match');</script>";
-        else if($this->EmailTaken($emailaddress) == false)
+        else if($this->EmailTaken($emailaddress))
             echo "<script>userRegisteredFailed('Emailaddress is already taken');</script>";
         else {
             $this->setUser($firstname, $lastname, $emailaddress, $password, $favorite_holiday_destination);
@@ -77,8 +77,8 @@ class LoginController extends Controller {
 
     private function EmailTaken($emailaddress){
         if($this->userService->checkUserExists($emailaddress))
-            return false;
-        return true;
+            return true;
+        return false;
     }
 
     private function setUser($firstname, $lastname, $emailaddress, $password, $favorite_holiday_destination){

@@ -42,11 +42,11 @@ class UserController
             // Call user service to delete user
             try {
                 $this->userService->deleteUser($sessionEmail);
-                http_response_code(200);
-                echo json_encode(['success' => true,
-                 'message' => 'Account deleted successfully'
-                ])
-                ;
+                // http_response_code(200);
+                // echo json_encode(['success' => true,
+                //  'message' => 'Account deleted successfully'
+                // ])
+                // ;
                 header("Location: /logout");
 
                 exit;

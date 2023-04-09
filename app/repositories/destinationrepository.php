@@ -7,7 +7,7 @@ class DestinationRepository extends Repository
     function getAll()
     {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM destination");
+            $stmt = $this->connection->prepare("SELECT destination_id, address, city, country, longitute, latitude, route_id FROM destination");
             $stmt->execute();
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'Destination');

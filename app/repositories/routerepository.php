@@ -23,17 +23,16 @@ class RouteRepository extends Repository
         }
     }
 
-    function insertRoute($newRowId, $title, $description, $authorEmail, $posted_at) {
+    function insertRoute($newRowId, $title, $description, $userEmail, $posted_at) {
         try {
             // First, retrieve the author_id based on the provided email address
-            $authorStmt = $this->connection->prepare("SELECT user_id FROM user WHERE emailaddress = ?");
-            $authorStmt->execute([$authorEmail]);
-            $authorId = $authorStmt->fetch(PDO::FETCH_COLUMN);
+            $userStmt = $this->connection->prepare("SELECT user_id FROM user WHERE emailaddress = ?");
+            $userStmt->execute([$userEmail]);
+            $userId = $userStmt->fetch(PDO::FETCH_COLUMN);
     
             // Then, insert the new route record with the retrieved author_id
-            $stmt = $this->connection->prepare("INSERT INTO route (route_id, title, route_description, author_id, posted_at)
-                                                VALUES (?, ?, ?, ?, ?)");            
-            $success = $stmt->execute([$newRowId, $title, $description, $authorId, $posted_at]);
+            $stmt = $this->connection->prepare("INSERT INTO route (route_id, title, route_description, author_id, posted_at) VALUES (?, ?, ?, ?, ?)");            
+            $success = $stmt->execute([$newRowId, $title, $description, $userId, $posted_at]);
     
             return $success;
         } catch (PDOException $e) {

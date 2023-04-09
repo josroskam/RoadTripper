@@ -24,25 +24,8 @@ class UserController extends Controller {
 
         if(isset($_POST["updateAccount"]))
         {        
-            $firstname = htmlspecialchars($_POST["newFirstname"]);
-            $lastname = htmlspecialchars($_POST["newLastname"]);
-            // $emailaddress = $_POST["newEmailaddress"];
-            $password = htmlspecialchars($_POST["newPassword"]);
-            $hashedPassword = htmlspecialchars(password_hash($password, PASSWORD_DEFAULT));
-            $destination = htmlspecialchars($_POST["newDestination"]);
-
-            if($this->emptyInput($firstname, $lastname, $password, $destination)){
-                echo "<script>userRegisteredFailed('Fields can not be empty.');</script>";
-            } else{       
-                $this->updateUser($firstname, $lastname, $hashedPassword, $destination, $sessionEmail);
-                echo "<script>updateFormFields();</script>";
-            }
+            $this->updateAccount($sessionEmail);
         }       
-    }
-
-    public function updateUser($firstname, $lastname, $hashedPassword, $destination, $sessionEmail) {
-        $this->userService->updateUser($firstname, $lastname, $hashedPassword, $destination, $sessionEmail);
-        echo "<script>userRegisteredSuccessfully('Account successfully updated!');</script>";
     }
 
     private function checkUser($sessionEmail){
@@ -61,6 +44,27 @@ class UserController extends Controller {
             echo "<script>openModal();</script>";
             echo "<script>userRegisteredFailed('Password incorrect');</script>";
         }
+    }
+
+    private function updateAccount($sessionEmail){
+        $firstname = htmlspecialchars($_POST["newFirstname"]);
+        $lastname = htmlspecialchars($_POST["newLastname"]);
+        // $emailaddress = $_POST["newEmailaddress"];
+        $password = htmlspecialchars($_POST["newPassword"]);
+        $hashedPassword = htmlspecialchars(password_hash($password, PASSWORD_DEFAULT));
+        $destination = htmlspecialchars($_POST["newDestination"]);
+
+        if($this->emptyInput($firstname, $lastname, $password, $destination)){
+            echo "<script>userRegisteredFailed('Fields can not be empty.');</script>";
+        } else{       
+            $this->updateUser($firstname, $lastname, $hashedPassword, $destination, $sessionEmail);
+            echo "<script>updateFormFields();</script>";
+        }
+    }
+
+    private function updateUser($firstname, $lastname, $hashedPassword, $destination, $sessionEmail) {
+        $this->userService->updateUser($firstname, $lastname, $hashedPassword, $destination, $sessionEmail);
+        echo "<script>userRegisteredSuccessfully('Account successfully updated!');</script>";
     }
 
     private function emptyInput($firstname, $lastname, $password, $destination){
