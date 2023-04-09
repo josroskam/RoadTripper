@@ -8,7 +8,6 @@ class UserRepository extends Repository
     {
         try {
             $stmt = $this->connection->prepare("SELECT user_id, firstname, lastname, emailaddress, hashedpassword, favorite_holiday_destination FROM user WHERE emailaddress = ?");
-            $stmt = $this->connection->prepare("SELECT user_id, firstname, lastname, emailaddress, hashedpassword, favorite_holiday_destination FROM user WHERE emailaddress = ?");
             $stmt->execute(array($emailaddress));
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
@@ -25,7 +24,6 @@ class UserRepository extends Repository
     {
         try {
             $stmt = $this->connection->prepare("INSERT INTO `user` ( `firstname`, `lastname`, `emailaddress`, `hashedpassword`, `favorite_holiday_destination`) VALUES (?,?,?,?,?)");
-
             $stmt->execute([$firstname, $lastname, $emailaddress, $password, $favorite_holiday_destination]);
 
         } catch (PDOException $e) {
@@ -55,7 +53,6 @@ class UserRepository extends Repository
 
             else if($checkPassword == true){
                 $stmt = $this->connection->prepare('SELECT user_id, firstname, lastname, emailaddress, hashedpassword, favorite_holiday_destination FROM user WHERE emailaddress = ? AND hashedpassword = ?;');
-                $stmt = $this->connection->prepare('SELECT user_id, firstname, lastname, emailaddress, hashedpassword, favorite_holiday_destination FROM user WHERE emailaddress = ? AND hashedpassword = ?;');
                 if(!$stmt->execute(array($emailaddress, $passwordHashed[0]["hashedpassword"]))){
                     $stmt = null;
                     exit();
@@ -74,38 +71,26 @@ class UserRepository extends Repository
         }       
     }
     
+    function getUser($email, $password) {
+        try {
+            $stmt = $this->connection->prepare('SELECT user_id, firstname, lastname, emailaddress, hashedpassword, favorite_holiday_destination FROM user WHERE emailaddress = ?;');
+            $stmt->execute([$email]);
 
-    function getUser($email, $password) {
-        try {
-            $stmt = $this->connection->prepare('SELECT user_id, firstname, lastname, emailaddress, hashedpassword, favorite_holiday_destination FROM user WHERE emailaddress = ?;');
-            $stmt->execute([$email]);
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            if (!$user || !password_verify($password, $user['hashedpassword'])) {
-    function getUser($email, $password) {
-        try {
-            $stmt = $this->connection->prepare('SELECT user_id, firstname, lastname, emailaddress, hashedpassword, favorite_holiday_destination FROM user WHERE emailaddress = ?;');
-            $stmt->execute([$email]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
             if (!$user || !password_verify($password, $user['hashedpassword'])) {
                 return false;
             }
+
             session_start();
             $_SESSION["firstname"] = $user["firstname"];
             $_SESSION["email"] = $user["emailaddress"];
             echo '<script>window.location = "/feed";</script>';
-            return true;
+            
+            return true;            
         } catch (PDOException $e) {
-            session_start();
-            $_SESSION["firstname"] = $user["firstname"];
-            $_SESSION["email"] = $user["emailaddress"];
-            echo '<script>window.location = "/feed";</script>';
-            return true;
-        } catch (PDOException $e) {
-            echo $e;
+            echo $e;        
         }
-        }
-    }
-    
+    }  
 
     
 
@@ -166,28 +151,5 @@ class UserRepository extends Repository
             header('Content-Type: application/json');
             echo json_encode($response);
         }
-    }
-    
-
-    function deleteUser($emailaddress){
-        try {
-            $sql = "DELETE FROM user WHERE emailaddress = ?";
-            $stmt= $this->connection->prepare($sql);
-            $stmt->execute([$emailaddress]);
-    
-            $rowCount = $stmt->rowCount();
-            if ($rowCount > 0) {
-                $response = ['success' => true, 'message' => "User deleted successfully. $rowCount rows affected."];
-            } else {
-                $response = ['success' => false, 'message' => "User not found or no rows affected."];
-            }
-            header('Content-Type: application/json');
-            echo json_encode($response);    
-        } catch (PDOException $e) {
-            $response = ['success' => false, 'message' => $e->getMessage()];
-            header('Content-Type: application/json');
-            echo json_encode($response);
-        }
-    }
-    
+    }    
 }

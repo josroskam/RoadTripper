@@ -11,7 +11,6 @@ class DestinationRepository extends Repository
             $stmt->execute();
 
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'Destination');
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Destination');
             $articles = $stmt->fetchAll();
 
             return $articles;
@@ -26,17 +25,10 @@ class DestinationRepository extends Repository
             if (!$stmt->execute([NULL, $destination->getAddress(), $destination->getCity(), $destination->getCountry(), $destination->getLongitude(), $destination->getLatitude(), $destination->getRouteId()])) {
               print_r($stmt->errorInfo());
               return false;
-            $stmt = $this->connection->prepare("INSERT INTO destination (destination_id, address, city, country, longitute, latitude, route_id) VALUES (?,?,?,?,?,?,?)");
-            if (!$stmt->execute([NULL, $destination->getAddress(), $destination->getCity(), $destination->getCountry(), $destination->getLongitude(), $destination->getLatitude(), $destination->getRouteId()])) {
-              print_r($stmt->errorInfo());
-              return false;
             }
             return true;
-          } catch (PDOException $e) {
-            echo $e->getMessage();
-            return false;
-          }          
-          } catch (PDOException $e) {
+          }        
+           catch (PDOException $e) {
             echo $e->getMessage();
             return false;
           }          

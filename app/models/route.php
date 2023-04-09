@@ -12,12 +12,12 @@ class Route implements JsonSerializable{
         // allocate your stuff
     }
 
-    public static function NewDestination($route_id, $title, $route_description, $firstname, $posted_at) {
+    public static function NewDestination($route_id, $title, $route_description, $author_id, $posted_at) {
         $route = new Route();
         $route->setRouteId($route_id);
         $route->setTitle($title);
         $route->setDescription($route_description);
-        $route->setAuthorId($firstname);
+        $route->setAuthorId($author_id);
         $route->setPostedAt($posted_at);
         return $route;
     }
@@ -43,19 +43,19 @@ class Route implements JsonSerializable{
     }
 
     public function getDescription() {
-        return $this->route_description;
+        return $this->description;
     }
 
     public function setDescription($route_description) {
-        $this->route_description = $route_description;
+        $this->description = $route_description;
     }
 
     public function getAuthorId() {
-        return $this->firstname;
+        return $this->author_id;
     }
 
-    public function setAuthorId($firstname) {
-        $this->firstname = $firstname;
+    public function setAuthorId($author_id) {
+        $this->author_id = $author_id;
     }
 
     public function getPostedAt() {
