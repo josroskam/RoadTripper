@@ -1,5 +1,6 @@
 -- phpMyAdmin SQL Dump
 -- version 5.2.0
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
@@ -65,7 +66,11 @@ INSERT INTO `destination` (`destination_id`, `address`, `city`, `country`, `long
 
 CREATE TABLE `route` (
   `route_id` int(11) NOT NULL,
+CREATE TABLE `route` (
+  `route_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
+  `route_description` varchar(255) NOT NULL,
+  `author_id` int(11) NOT NULL,
   `route_description` varchar(255) NOT NULL,
   `author_id` int(11) NOT NULL,
   `posted_at` datetime NOT NULL
@@ -94,11 +99,44 @@ CREATE TABLE `user` (
   `hashedpassword` varchar(255) NOT NULL,
   `favorite_holiday_destination` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `route`
+--
+
+INSERT INTO `route` (`route_id`, `title`, `route_description`, `author_id`, `posted_at`) VALUES
+(52, 'Rondje Haarlem!', 'Voor op je oude dag..', 23, '2023-03-21 00:00:00'),
+(53, 'Cultuur snuiven', 'Paar random steden', 23, '2023-03-21 00:00:00'),
+(56, 'Roadtripping trough Europe!', 'SEVEN! countries to visit', 27, '2023-03-29 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `user`
+--
+
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `emailaddress` varchar(255) NOT NULL,
+  `hashedpassword` varchar(255) NOT NULL,
+  `favorite_holiday_destination` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `user`
+-- Gegevens worden geëxporteerd voor tabel `user`
 --
 
+INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `emailaddress`, `hashedpassword`, `favorite_holiday_destination`) VALUES
+(23, 'Admin', 'Admin', 'admin@user.nl', '$2y$10$f1dpdc2E2/LuzPA.hjLvnOOd0XmiGvbuvUIS5KahuXyAwjxqD6Thi', 'admin'),
+(27, 'Lennard', 'Ruud', 'lruud@webdev.nl', '$2y$10$LkmAa3kU80pdQkG.pzquP.beo9A9JwF7Adxs9eDOVE0vM1GJ/mvDu', 'Vlieland');
+
+--
+-- Indexen voor geëxporteerde tabellen
+--
 INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `emailaddress`, `hashedpassword`, `favorite_holiday_destination`) VALUES
 (23, 'Admin', 'Admin', 'admin@user.nl', '$2y$10$f1dpdc2E2/LuzPA.hjLvnOOd0XmiGvbuvUIS5KahuXyAwjxqD6Thi', 'admin'),
 (27, 'Lennard', 'Ruud', 'lruud@webdev.nl', '$2y$10$LkmAa3kU80pdQkG.pzquP.beo9A9JwF7Adxs9eDOVE0vM1GJ/mvDu', 'Vlieland');
@@ -113,7 +151,19 @@ INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `emailaddress`, `hashedp
 ALTER TABLE `destination`
   ADD PRIMARY KEY (`destination_id`),
   ADD KEY `route_id` (`route_id`);
+--
+-- Indexen voor tabel `destination`
+--
+ALTER TABLE `destination`
+  ADD PRIMARY KEY (`destination_id`),
+  ADD KEY `route_id` (`route_id`);
 
+--
+-- Indexen voor tabel `route`
+--
+ALTER TABLE `route`
+  ADD PRIMARY KEY (`route_id`),
+  ADD KEY `author_id` (`author_id`);
 --
 -- Indexen voor tabel `route`
 --
@@ -126,8 +176,14 @@ ALTER TABLE `route`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
+--
+-- Indexen voor tabel `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`);
 
 --
+-- AUTO_INCREMENT voor geëxporteerde tabellen
 -- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
@@ -148,8 +204,11 @@ ALTER TABLE `route`
 --
 ALTER TABLE `user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+ALTER TABLE `user`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
+-- Beperkingen voor geëxporteerde tabellen
 -- Beperkingen voor geëxporteerde tabellen
 --
 
@@ -161,7 +220,16 @@ ALTER TABLE `destination`
 
 --
 -- Beperkingen voor tabel `route`
+-- Beperkingen voor tabel `destination`
 --
+ALTER TABLE `destination`
+  ADD CONSTRAINT `destination_ibfk_2` FOREIGN KEY (`route_id`) REFERENCES `route` (`route_id`) ON DELETE CASCADE;
+
+--
+-- Beperkingen voor tabel `route`
+--
+ALTER TABLE `route`
+  ADD CONSTRAINT `route_ibfk_2` FOREIGN KEY (`author_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
 ALTER TABLE `route`
   ADD CONSTRAINT `route_ibfk_2` FOREIGN KEY (`author_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
 COMMIT;

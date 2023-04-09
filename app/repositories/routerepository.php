@@ -2,6 +2,7 @@
 require __DIR__ . '/repository.php';
 require __DIR__ . '/../models/route.php';
 require __DIR__ . '/../models/destination.php';
+require __DIR__ . '/../models/destination.php';
 
 class RouteRepository extends Repository
 {
@@ -12,8 +13,13 @@ class RouteRepository extends Repository
             FROM route 
             JOIN user AS u 
             ON u.user_id = route.author_id;");
+            $stmt = $this->connection->prepare("SELECT route_id, title, route_description, firstname, posted_at 
+            FROM route 
+            JOIN user AS u 
+            ON u.user_id = route.author_id;");
             $stmt->execute();
 
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Route');
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'Route');
             $articles = $stmt->fetchAll();
 
@@ -38,8 +44,11 @@ class RouteRepository extends Repository
         } catch (PDOException $e) {
             echo $e;
             return false;
+            return false;
         }
     }
+    
+
     
 
     function getLastRouteId(){
@@ -47,6 +56,20 @@ class RouteRepository extends Repository
             $stmt = $this->connection->prepare("SELECT route_id FROM route ORDER BY route_id DESC LIMIT 1");
             $stmt->execute();
             return $stmt->fetchColumn();
+        } catch (PDOException $e) {
+            echo $e;
+        }
+    }
+
+    function getDestinationsForRoute($route_id){
+        try {
+            $stmt = $this->connection->prepare("SELECT destination_id, address, city, country, longitute, latitude, route_id FROM destination WHERE route_id = ?");
+            $stmt->execute(array($route_id));
+
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Destination');
+            $destinations = $stmt->fetchAll();
+
+            return $destinations;
         } catch (PDOException $e) {
             echo $e;
         }

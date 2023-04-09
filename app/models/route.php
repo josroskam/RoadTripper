@@ -2,12 +2,11 @@
 
 class Route implements JsonSerializable{
 
-    private $route_id;
-    private $title;
-    private $route_description;
-    // private $author_id;
-    private $firstname;
-    private $posted_at;
+    private int $route_id;
+    private string $title;
+    private string $description;
+    private int $author_id;
+    private DateTime $posted_at;
 
     public function __construct() {
         // allocate your stuff

@@ -4,10 +4,12 @@ require __DIR__ . '/../../services/userservice.php';
 class UserController
 {
     private $userService;
+    private $userService;
 
     // initialize services
     function __construct()
     {
+        $this->userService = new UserService();
         $this->userService = new UserService();
     }
 
@@ -26,11 +28,14 @@ class UserController
                 "destination" == 'dnation'
             ];
 
+
             // return all articles in the database as JSON
             header('Content-Type: application/json');
             echo json_encode($userData);
         }
 
+        // Respond to a DELETE request to /api/article
+        if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
         // Respond to a DELETE request to /api/article
         if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
             header("Access-Control-Allow-Origin: *");
