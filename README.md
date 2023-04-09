@@ -1,6 +1,7 @@
 # RoadTrip website
 
 Made with pride by: Jos Roskam 688047 Inf2a
+
 Link: https://roadtripper.000webhostapp.com/
 
 ## Users
